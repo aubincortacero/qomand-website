@@ -1,6 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import { signOut } from "@/app/actions/auth";
-import { APP_URL, PRICING } from "@/lib/constants";
+import { APP_URL, APP_ROUTES, PRICING } from "@/lib/constants";
 
 export default async function DashboardPage() {
   const supabase = await createClient();
@@ -262,7 +262,7 @@ export default async function DashboardPage() {
                 </p>
               </div>
               <a
-                href={`${APP_URL}/onboarding`}
+                href={isSubscribed || isTrialActive ? APP_ROUTES.dashboard : APP_ROUTES.subscribe}
                 style={{
                   display: "inline-flex",
                   alignItems: "center",
@@ -297,7 +297,7 @@ export default async function DashboardPage() {
 
           {/* Open app */}
           <a
-            href={APP_URL}
+            href={APP_ROUTES.dashboard}
             target="_blank"
             rel="noopener noreferrer"
             style={{
@@ -356,133 +356,82 @@ export default async function DashboardPage() {
             </div>
           </a>
 
-          {/* Manage menu */}
+          {/* Menu */}
           <a
-            href={`${APP_URL}/menu`}
+            href={APP_ROUTES.menu}
             target="_blank"
             rel="noopener noreferrer"
-            style={{
-              background: "var(--surface)",
-              border: "1px solid var(--border)",
-              borderRadius: 14,
-              padding: "24px",
-              textDecoration: "none",
-              display: "flex",
-              flexDirection: "column",
-              gap: 12,
-              transition: "border-color 0.2s",
-            }}
+            style={{ background: "var(--surface)", border: "1px solid var(--border)", borderRadius: 14, padding: "24px", textDecoration: "none", display: "flex", flexDirection: "column", gap: 12 }}
           >
-            <div
-              style={{
-                width: 42,
-                height: 42,
-                background: "var(--surface-1)",
-                border: "1px solid var(--border)",
-                borderRadius: 10,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <svg
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="var(--primary)"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M14.5 10c-.83 0-1.5-.67-1.5-1.5v-5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5z" />
-                <path d="M20.5 10H19V8.5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z" />
-                <path d="M9.5 14c.83 0 1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5S8 21.33 8 20.5v-5c0-.83.67-1.5 1.5-1.5z" />
-                <path d="M3.5 14H5v1.5c0 .83-.67 1.5-1.5 1.5S2 16.33 2 15.5 2.67 14 3.5 14z" />
-                <path d="M14 14.5c0-.83.67-1.5 1.5-1.5h5c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5h-5c-.83 0-1.5-.67-1.5-1.5z" />
-                <path d="M15.5 19H14v1.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5-.67-1.5-1.5-1.5z" />
-                <path d="M10 9.5C10 8.67 9.33 8 8.5 8h-5C2.67 8 2 8.67 2 9.5S2.67 11 3.5 11h5c.83 0 1.5-.67 1.5-1.5z" />
-                <path d="M8.5 5H10V3.5C10 2.67 9.33 2 8.5 2S7 2.67 7 3.5 7.67 5 8.5 5z" />
+            <div style={{ width: 42, height: 42, background: "var(--surface-1)", border: "1px solid var(--border)", borderRadius: 10, display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="8" y1="6" x2="21" y2="6" /><line x1="8" y1="12" x2="21" y2="12" /><line x1="8" y1="18" x2="21" y2="18" />
+                <line x1="3" y1="6" x2="3.01" y2="6" /><line x1="3" y1="12" x2="3.01" y2="12" /><line x1="3" y1="18" x2="3.01" y2="18" />
               </svg>
             </div>
             <div>
-              <p
-                style={{
-                  fontSize: 15,
-                  fontWeight: 600,
-                  color: "var(--foreground)",
-                  margin: "0 0 4px",
-                }}
-              >
-                Gérer le menu
-              </p>
-              <p style={{ fontSize: 13, color: "var(--muted)", margin: 0 }}>
-                Ajoutez, modifiez ou supprimez vos plats en temps réel.
-              </p>
+              <p style={{ fontSize: 15, fontWeight: 600, color: "var(--foreground)", margin: "0 0 4px" }}>Gérer le menu</p>
+              <p style={{ fontSize: 13, color: "var(--muted)", margin: 0 }}>Ajoutez, modifiez ou supprimez vos plats en temps réel.</p>
             </div>
           </a>
 
-          {/* QR code */}
+          {/* Orders */}
           <a
-            href={`${APP_URL}/qr`}
+            href={APP_ROUTES.orders}
             target="_blank"
             rel="noopener noreferrer"
-            style={{
-              background: "var(--surface)",
-              border: "1px solid var(--border)",
-              borderRadius: 14,
-              padding: "24px",
-              textDecoration: "none",
-              display: "flex",
-              flexDirection: "column",
-              gap: 12,
-              transition: "border-color 0.2s",
-            }}
+            style={{ background: "var(--surface)", border: "1px solid var(--border)", borderRadius: 14, padding: "24px", textDecoration: "none", display: "flex", flexDirection: "column", gap: 12 }}
           >
-            <div
-              style={{
-                width: 42,
-                height: 42,
-                background: "var(--surface-1)",
-                border: "1px solid var(--border)",
-                borderRadius: 10,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <svg
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="var(--primary)"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <rect x="3" y="3" width="7" height="7" rx="1" />
-                <rect x="14" y="3" width="7" height="7" rx="1" />
-                <rect x="3" y="14" width="7" height="7" rx="1" />
-                <circle cx="17.5" cy="17.5" r="2" />
-                <path d="M14 14h4" />
-                <path d="M17 14v4" />
+            <div style={{ width: 42, height: 42, background: "var(--surface-1)", border: "1px solid var(--border)", borderRadius: 10, display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
+                <line x1="3" y1="6" x2="21" y2="6" />
+                <path d="M16 10a4 4 0 0 1-8 0" />
               </svg>
             </div>
             <div>
-              <p
-                style={{
-                  fontSize: 15,
-                  fontWeight: 600,
-                  color: "var(--foreground)",
-                  margin: "0 0 4px",
-                }}
-              >
-                Mon QR code
-              </p>
-              <p style={{ fontSize: 13, color: "var(--muted)", margin: 0 }}>
-                Téléchargez et imprimez vos QR codes pour chaque table.
-              </p>
+              <p style={{ fontSize: 15, fontWeight: 600, color: "var(--foreground)", margin: "0 0 4px" }}>Commandes</p>
+              <p style={{ fontSize: 13, color: "var(--muted)", margin: 0 }}>Suivez les commandes de vos tables en temps réel.</p>
+            </div>
+          </a>
+
+          {/* Tables */}
+          <a
+            href={APP_ROUTES.tables}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ background: "var(--surface)", border: "1px solid var(--border)", borderRadius: 14, padding: "24px", textDecoration: "none", display: "flex", flexDirection: "column", gap: 12 }}
+          >
+            <div style={{ width: 42, height: 42, background: "var(--surface-1)", border: "1px solid var(--border)", borderRadius: 10, display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="3" y="3" width="7" height="7" rx="1" />
+                <rect x="14" y="3" width="7" height="7" rx="1" />
+                <rect x="3" y="14" width="7" height="7" rx="1" />
+                <rect x="14" y="14" width="7" height="7" rx="1" />
+              </svg>
+            </div>
+            <div>
+              <p style={{ fontSize: 15, fontWeight: 600, color: "var(--foreground)", margin: "0 0 4px" }}>Tables & QR codes</p>
+              <p style={{ fontSize: 13, color: "var(--muted)", margin: 0 }}>Gérez vos tables et téléchargez vos QR codes.</p>
+            </div>
+          </a>
+
+          {/* Settings */}
+          <a
+            href={APP_ROUTES.settings}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ background: "var(--surface)", border: "1px solid var(--border)", borderRadius: 14, padding: "24px", textDecoration: "none", display: "flex", flexDirection: "column", gap: 12 }}
+          >
+            <div style={{ width: 42, height: 42, background: "var(--surface-1)", border: "1px solid var(--border)", borderRadius: 10, display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="12" cy="12" r="3" />
+                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
+              </svg>
+            </div>
+            <div>
+              <p style={{ fontSize: 15, fontWeight: 600, color: "var(--foreground)", margin: "0 0 4px" }}>Paramètres</p>
+              <p style={{ fontSize: 13, color: "var(--muted)", margin: 0 }}>Horaires, paiements, informations du restaurant.</p>
             </div>
           </a>
 
