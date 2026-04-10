@@ -1,6 +1,32 @@
 "use client";
 
+import { useEffect, useState } from "react";
+import { createClient } from "@/lib/supabase/client";
+import type { User } from "@supabase/supabase-js";
+
+function truncateName(user: User): string {
+  const name =
+    (user.user_metadata?.full_name as string | undefined) ||
+    (user.user_metadata?.name as string | undefined) ||
+    user.email?.split("@")[0] ||
+    "Compte";
+  return name.length > 12 ? name.slice(0, 11) + "…" : name;
+}
+
 export default function Navbar() {
+  const [user, setUser] = useState<User | null>(null);
+
+  useEffect(() => {
+    const supabase = createClient();
+    supabase.auth.getUser().then(({ data }) => setUser(data.user));
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null);
+    });
+    return () => subscription.unsubscribe();
+  }, []);
+
   return (
     <header
       style={{
@@ -106,40 +132,99 @@ export default function Navbar() {
 
         {/* CTA */}
         <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-          <a
-            href="/sign-in"
-            style={{
-              color: "var(--muted)",
-              textDecoration: "none",
-              fontSize: 14,
-              fontWeight: 500,
-            }}
-          >
-            Connexion
-          </a>
-          <a
-            href="/sign-up"
-            style={{
-              background: "var(--primary)",
-              color: "white",
-              textDecoration: "none",
-              fontSize: 14,
-              fontWeight: 600,
-              padding: "9px 18px",
-              borderRadius: 8,
-              transition: "background 0.2s, opacity 0.2s",
-              display: "inline-block",
-            }}
-            onMouseEnter={(e) =>
-              ((e.target as HTMLElement).style.background =
-                "var(--primary-hover)")
-            }
-            onMouseLeave={(e) =>
-              ((e.target as HTMLElement).style.background = "var(--primary)")
-            }
-          >
-            Essai gratuit
-          </a>
+          {user ? (
+            /* Connecté */
+            <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 6,
+                  color: "var(--muted)",
+                  fontSize: 14,
+                  fontWeight: 500,
+                }}
+              >
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <circle cx="12" cy="8" r="4" />
+                  <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
+                </svg>
+                <span>{truncateName(user)}</span>
+              </div>
+              <a
+                href="/dashboard"
+                style={{
+                  background: "var(--primary)",
+                  color: "white",
+                  textDecoration: "none",
+                  fontSize: 14,
+                  fontWeight: 600,
+                  padding: "9px 18px",
+                  borderRadius: 8,
+                  transition: "background 0.2s, opacity 0.2s",
+                  display: "inline-block",
+                }}
+                onMouseEnter={(e) =>
+                  ((e.target as HTMLElement).style.background =
+                    "var(--primary-hover)")
+                }
+                onMouseLeave={(e) =>
+                  ((e.target as HTMLElement).style.background =
+                    "var(--primary)")
+                }
+              >
+                Accéder à l&apos;app →
+              </a>
+            </div>
+          ) : (
+            /* Non connecté */
+            <>
+              <a
+                href="/sign-in"
+                style={{
+                  color: "var(--muted)",
+                  textDecoration: "none",
+                  fontSize: 14,
+                  fontWeight: 500,
+                }}
+              >
+                Connexion
+              </a>
+              <a
+                href="/sign-up"
+                style={{
+                  background: "var(--primary)",
+                  color: "white",
+                  textDecoration: "none",
+                  fontSize: 14,
+                  fontWeight: 600,
+                  padding: "9px 18px",
+                  borderRadius: 8,
+                  transition: "background 0.2s, opacity 0.2s",
+                  display: "inline-block",
+                }}
+                onMouseEnter={(e) =>
+                  ((e.target as HTMLElement).style.background =
+                    "var(--primary-hover)")
+                }
+                onMouseLeave={(e) =>
+                  ((e.target as HTMLElement).style.background =
+                    "var(--primary)")
+                }
+              >
+                Essai gratuit
+              </a>
+            </>
+          )}
         </div>
       </div>
     </header>
