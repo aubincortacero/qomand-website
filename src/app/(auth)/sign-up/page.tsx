@@ -3,6 +3,7 @@
 import { useActionState } from "react";
 import { useFormStatus } from "react-dom";
 import { signUp } from "@/app/actions/auth";
+import GoogleButton from "@/components/GoogleButton";
 
 function SubmitButton() {
   const { pending } = useFormStatus();
@@ -62,6 +63,24 @@ export default function SignUpPage() {
       >
         7 jours d&apos;essai gratuit — sans carte bancaire.
       </p>
+
+      <GoogleButton label="Continuer avec Google" />
+
+      {/* Divider */}
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: 12,
+          margin: "20px 0",
+        }}
+      >
+        <div style={{ flex: 1, height: 1, background: "var(--border)" }} />
+        <span style={{ fontSize: 12, color: "var(--muted)", whiteSpace: "nowrap" }}>
+          ou avec un email
+        </span>
+        <div style={{ flex: 1, height: 1, background: "var(--border)" }} />
+      </div>
 
       {state?.error && (
         <div
