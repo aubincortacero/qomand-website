@@ -1,20 +1,28 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import type { User } from "@supabase/supabase-js";
 
-function truncateName(user: User): string {
-  const name =
+function getDisplayName(user: User): string {
+  return (
     (user.user_metadata?.full_name as string | undefined) ||
     (user.user_metadata?.name as string | undefined) ||
     user.email?.split("@")[0] ||
-    "Compte";
-  return name.length > 12 ? name.slice(0, 11) + "…" : name;
+    "Compte"
+  );
+}
+
+function getInitial(user: User): string {
+  return getDisplayName(user).charAt(0).toUpperCase();
 }
 
 export default function Navbar() {
   const [user, setUser] = useState<User | null>(null);
+  const [open, setOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
 
   useEffect(() => {
     const supabase = createClient();
@@ -26,6 +34,24 @@ export default function Navbar() {
     });
     return () => subscription.unsubscribe();
   }, []);
+
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+        setOpen(false);
+      }
+    }
+    if (open) document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [open]);
+
+  async function handleSignOut() {
+    const supabase = createClient();
+    await supabase.auth.signOut();
+    setOpen(false);
+    router.push("/");
+    router.refresh();
+  }
 
   return (
     <header
@@ -133,57 +159,217 @@ export default function Navbar() {
         {/* CTA */}
         <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
           {user ? (
-            /* Connecté */
-            <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-              <div
+            /* Connecté — trigger + dropdown */
+            <div ref={dropdownRef} style={{ position: "relative" }}>
+              {/* Trigger */}
+              <button
+                onClick={() => setOpen((v) => !v)}
                 style={{
                   display: "flex",
                   alignItems: "center",
-                  gap: 6,
-                  color: "var(--muted)",
-                  fontSize: 14,
-                  fontWeight: 500,
-                }}
-              >
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <circle cx="12" cy="8" r="4" />
-                  <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
-                </svg>
-                <span>{truncateName(user)}</span>
-              </div>
-              <a
-                href="/dashboard"
-                style={{
-                  background: "var(--primary)",
-                  color: "white",
-                  textDecoration: "none",
-                  fontSize: 14,
-                  fontWeight: 600,
-                  padding: "9px 18px",
+                  gap: 8,
+                  background: "none",
+                  border: "none",
+                  cursor: "pointer",
+                  padding: "6px 8px",
                   borderRadius: 8,
-                  transition: "background 0.2s, opacity 0.2s",
-                  display: "inline-block",
+                  transition: "background 0.15s",
                 }}
                 onMouseEnter={(e) =>
-                  ((e.target as HTMLElement).style.background =
-                    "var(--primary-hover)")
+                  ((e.currentTarget as HTMLElement).style.background =
+                    "rgba(255,255,255,0.06)")
                 }
                 onMouseLeave={(e) =>
-                  ((e.target as HTMLElement).style.background =
-                    "var(--primary)")
+                  ((e.currentTarget as HTMLElement).style.background = "none")
                 }
               >
-                Accéder à l&apos;app →
-              </a>
+                {/* Avatar */}
+                <div
+                  style={{
+                    width: 30,
+                    height: 30,
+                    borderRadius: "50%",
+                    background: "var(--primary)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    fontWeight: 700,
+                    fontSize: 13,
+                    color: "white",
+                    flexShrink: 0,
+                  }}
+                >
+                  {getInitial(user)}
+                </div>
+                {/* Nom — masqué sur petits écrans */}
+                <span
+                  className="hidden-mobile"
+                  style={{
+                    color: "var(--foreground)",
+                    fontSize: 14,
+                    fontWeight: 500,
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  {getDisplayName(user)}
+                </span>
+                {/* Chevron */}
+                <svg
+                  className="hidden-mobile"
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="var(--muted)"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  style={{
+                    transition: "transform 0.2s",
+                    transform: open ? "rotate(180deg)" : "rotate(0deg)",
+                  }}
+                >
+                  <path d="M6 9l6 6 6-6" />
+                </svg>
+              </button>
+
+              {/* Dropdown */}
+              {open && (
+                <div
+                  style={{
+                    position: "absolute",
+                    top: "calc(100% + 10px)",
+                    right: 0,
+                    width: 272,
+                    background: "#1c1c1c",
+                    border: "1px solid var(--border)",
+                    borderRadius: 14,
+                    boxShadow: "0 16px 48px rgba(0,0,0,0.5)",
+                    padding: "16px",
+                    zIndex: 100,
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 12,
+                  }}
+                >
+                  {/* Identité */}
+                  <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                    <div
+                      style={{
+                        width: 38,
+                        height: 38,
+                        borderRadius: "50%",
+                        background: "var(--primary)",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        fontWeight: 700,
+                        fontSize: 16,
+                        color: "white",
+                        flexShrink: 0,
+                      }}
+                    >
+                      {getInitial(user)}
+                    </div>
+                    <div style={{ minWidth: 0 }}>
+                      <div
+                        style={{
+                          color: "var(--foreground)",
+                          fontWeight: 600,
+                          fontSize: 14,
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          whiteSpace: "nowrap",
+                        }}
+                      >
+                        {getDisplayName(user)}
+                      </div>
+                      <div
+                        style={{
+                          color: "var(--muted)",
+                          fontSize: 12,
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          whiteSpace: "nowrap",
+                        }}
+                      >
+                        {user.email}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* CTA Accéder à l'app */}
+                  <a
+                    href="/dashboard"
+                    onClick={() => setOpen(false)}
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                      background: "var(--primary)",
+                      color: "white",
+                      textDecoration: "none",
+                      borderRadius: 10,
+                      padding: "12px 14px",
+                      fontWeight: 700,
+                      fontSize: 14,
+                    }}
+                  >
+                    <span>Accéder à l&apos;app</span>
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="white"
+                      strokeWidth="2.2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                      <polyline points="15 3 21 3 21 9" />
+                      <line x1="10" y1="14" x2="21" y2="3" />
+                    </svg>
+                  </a>
+
+                  {/* Séparateur */}
+                  <div style={{ borderTop: "1px solid var(--border)" }} />
+
+                  {/* Déconnexion */}
+                  <button
+                    onClick={handleSignOut}
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 8,
+                      background: "none",
+                      border: "none",
+                      cursor: "pointer",
+                      color: "#e05252",
+                      fontSize: 14,
+                      fontWeight: 500,
+                      padding: "4px 0",
+                      textAlign: "left",
+                    }}
+                  >
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                      <polyline points="16 17 21 12 16 7" />
+                      <line x1="21" y1="12" x2="9" y2="12" />
+                    </svg>
+                    Déconnexion
+                  </button>
+                </div>
+              )}
             </div>
           ) : (
             /* Non connecté */
