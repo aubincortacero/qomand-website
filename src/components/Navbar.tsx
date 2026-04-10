@@ -76,10 +76,15 @@ export default function Navbar() {
           }}
           className="hidden-mobile"
         >
-          {["Fonctionnalités", "Tarifs", "À propos"].map((item) => (
+          {[
+            { label: "Fonctionnalités", href: "#features" },
+            { label: "Comment ça marche", href: "#how-it-works" },
+            { label: "Tarifs", href: "#pricing" },
+            { label: "FAQ", href: "#faq" },
+          ].map(({ label, href }) => (
             <a
-              key={item}
-              href="#"
+              key={label}
+              href={href}
               style={{
                 color: "var(--muted)",
                 textDecoration: "none",
@@ -94,7 +99,7 @@ export default function Navbar() {
                 ((e.target as HTMLElement).style.color = "var(--muted)")
               }
             >
-              {item}
+              {label}
             </a>
           ))}
         </nav>
@@ -102,7 +107,7 @@ export default function Navbar() {
         {/* CTA */}
         <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
           <a
-            href="#"
+            href="/sign-in"
             style={{
               color: "var(--muted)",
               textDecoration: "none",
@@ -113,7 +118,7 @@ export default function Navbar() {
             Connexion
           </a>
           <a
-            href="#"
+            href="/sign-up"
             style={{
               background: "var(--primary)",
               color: "white",

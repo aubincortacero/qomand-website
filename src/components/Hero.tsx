@@ -103,7 +103,7 @@ export default function Hero() {
           }}
         >
           <a
-            href="#"
+            href="https://app.qomand.fr/register"
             style={{
               background: "var(--primary)",
               color: "white",
@@ -143,7 +143,7 @@ export default function Hero() {
             </svg>
           </a>
           <a
-            href="#"
+            href="#how-it-works"
             style={{
               background: "transparent",
               color: "var(--foreground)",
