@@ -8,21 +8,38 @@ export default async function DashboardPage() {
     data: { user },
   } = await supabase.auth.getUser();
 
+  // Fetch profile from DB (single source of truth shared with the app)
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select("full_name, plan, subscription_status, trial_ends_at, created_at")
+    .eq("id", user!.id)
+    .single();
+
   const name =
+    (profile?.full_name as string) ||
     (user?.user_metadata?.full_name as string) ||
     user?.email?.split("@")[0] ||
     "Vous";
 
-  // Calculate trial days remaining (7-day trial from account creation)
-  const createdAt = user?.created_at ? new Date(user.created_at) : new Date();
-  const trialEndsAt = new Date(createdAt);
-  trialEndsAt.setDate(trialEndsAt.getDate() + PRICING.trialDays);
+  const createdAt = profile?.created_at
+    ? new Date(profile.created_at)
+    : user?.created_at
+    ? new Date(user.created_at)
+    : new Date();
+
   const now = new Date();
-  const daysLeft = Math.max(
-    0,
-    Math.ceil((trialEndsAt.getTime() - now.getTime()) / (1000 * 60 * 60 * 24))
-  );
-  const isTrialActive = daysLeft > 0;
+  const trialEndsAt = profile?.trial_ends_at
+    ? new Date(profile.trial_ends_at)
+    : null;
+  const daysLeft =
+    trialEndsAt
+      ? Math.max(0, Math.ceil((trialEndsAt.getTime() - now.getTime()) / (1000 * 60 * 60 * 24)))
+      : 0;
+  const subscriptionStatus = profile?.subscription_status ?? "trialing";
+  const isTrialActive =
+    subscriptionStatus === "trialing" && daysLeft > 0;
+  const isSubscribed =
+    subscriptionStatus === "active" || subscriptionStatus === "past_due";
 
   return (
     <div
@@ -212,7 +229,7 @@ export default async function DashboardPage() {
                       display: "inline-block",
                     }}
                   />
-                  {isTrialActive ? "Essai gratuit actif" : "Essai expiré"}
+                  {isSubscribed ? "Abonnement actif" : isTrialActive ? "Essai gratuit actif" : "Essai expiré"}
                 </div>
                 <h2
                   style={{
@@ -222,8 +239,10 @@ export default async function DashboardPage() {
                     letterSpacing: "-0.02em",
                   }}
                 >
-                  {isTrialActive
-                    ? `${daysLeft} jour${daysLeft > 1 ? "s" : ""} restant${daysLeft > 1 ? "s" : ""}`
+                  {isSubscribed
+                    ? "Abonnement en cours"
+                    : isTrialActive
+                    ? `${daysLeft} jour${daysLeft > 1 ? "s" : ""} d'essai restant${daysLeft > 1 ? "s" : ""}`
                     : "Votre essai est terminé"}
                 </h2>
                 <p
@@ -235,8 +254,10 @@ export default async function DashboardPage() {
                     lineHeight: 1.55,
                   }}
                 >
-                  {isTrialActive
-                    ? `Profitez pleinement de toutes les fonctionnalités Qomand. Votre essai se termine le ${trialEndsAt.toLocaleDateString("fr-FR", { day: "numeric", month: "long" })}.`
+                  {isSubscribed
+                    ? "Toutes les fonctionnalités sont disponibles. Merci de nous faire confiance !"
+                    : isTrialActive
+                    ? `Profitez pleinement de toutes les fonctionnalités Qomand. Votre essai se termine le ${trialEndsAt!.toLocaleDateString("fr-FR", { day: "numeric", month: "long" })}.`
                     : "Votre période d'essai est terminée. Passez à un abonnement pour continuer à utiliser Qomand."}
                 </p>
               </div>
@@ -257,7 +278,7 @@ export default async function DashboardPage() {
                   flexShrink: 0,
                 }}
               >
-                {isTrialActive ? "Démarrer l'app" : "Choisir un forfait"}
+                {isSubscribed ? "Ouvrir l'app" : isTrialActive ? "Démarrer l'app" : "Choisir un forfait"}
                 <svg
                   width="14"
                   height="14"
@@ -583,7 +604,7 @@ export default async function DashboardPage() {
                 Restaurant
               </p>
               <p style={{ fontSize: 14, color: "var(--foreground)", margin: 0 }}>
-                {(user?.user_metadata?.full_name as string) || "—"}
+                {name}
               </p>
             </div>
             <div>
@@ -603,7 +624,11 @@ export default async function DashboardPage() {
                 Forfait
               </p>
               <p style={{ fontSize: 14, color: "var(--foreground)", margin: 0 }}>
-                {isTrialActive ? `Essai gratuit (${daysLeft}j restants)` : "Aucun abonnement actif"}
+                {isSubscribed
+                  ? `Abonné — ${profile?.plan ?? "Pro"}`
+                  : isTrialActive
+                  ? `Essai gratuit (${daysLeft}j restants)`
+                  : "Essai expiré"}
               </p>
             </div>
           </div>
