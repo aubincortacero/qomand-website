@@ -300,7 +300,7 @@ export default function Navbar() {
 
                   {/* CTA Accéder à l'app */}
                   <a
-                    href="/dashboard"
+                    href="https://app.qomand.fr/dashboard"
                     onClick={() => setOpen(false)}
                     style={{
                       display: "flex",
