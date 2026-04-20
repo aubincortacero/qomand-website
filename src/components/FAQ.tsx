@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import FadeIn from "./FadeIn";
 
 const faqs = [
   {
@@ -25,11 +26,11 @@ const faqs = [
   },
   {
     q: "Peut-on utiliser Qomand sans proposer le paiement en ligne ?",
-    a: "Oui. Le module de paiement est entièrement optionnel. Vous pouvez utiliser Qomand uniquement pour la gestion du menu et la réception des commandes, et encaisser vous-même par les moyens habituels.",
+    a: "Oui. Le module de paiement est entièrement optionnel. Vous pouvez utiliser Qomand uniquement pour la gestion du menu et la réception des commandes.",
   },
   {
     q: "Combien de restaurants puis-je gérer avec un abonnement ?",
-    a: "Chaque abonnement couvre un établissement. Contactez-nous à contact@qomand.fr pour un tarif multi-restaurants adapté à votre situation.",
+    a: "Chaque abonnement couvre un établissement. Contactez-nous à contact@qomand.fr pour un tarif multi-restaurants.",
   },
 ];
 
@@ -37,110 +38,70 @@ export default function FAQ() {
   const [open, setOpen] = useState<number | null>(null);
 
   return (
-    <section id="faq" style={{ padding: "96px 24px" }}>
-      <div style={{ maxWidth: 720, margin: "0 auto" }}>
-        {/* Header */}
-        <div style={{ textAlign: "center", marginBottom: 64 }}>
-          <h2
-            style={{
-              fontSize: "clamp(28px, 4vw, 42px)",
-              fontWeight: 800,
-              letterSpacing: "-0.03em",
-              color: "var(--foreground)",
-              margin: "0 0 16px",
-            }}
-          >
-            Questions{" "}
-            <span style={{ color: "var(--primary)" }}>fréquentes</span>
-          </h2>
-          <p
-            style={{
-              fontSize: "clamp(15px, 1.8vw, 18px)",
-              color: "var(--muted)",
-              lineHeight: 1.65,
-              margin: 0,
-            }}
-          >
-            Vous ne trouvez pas votre réponse ? Écrivez-nous à{" "}
-            <a
-              href="mailto:contact@qomand.fr"
-              style={{ color: "var(--primary)", textDecoration: "none" }}
-            >
-              contact@qomand.fr
-            </a>
-          </p>
-        </div>
-
-        {/* Accordion */}
-        <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-          {faqs.map((faq, i) => (
-            <div
-              key={i}
-              style={{
-                background: "var(--surface)",
-                border: "1px solid var(--border)",
-                borderRadius: 10,
-                overflow: "hidden",
-              }}
-            >
-              <button
-                onClick={() => setOpen(open === i ? null : i)}
-                style={{
-                  width: "100%",
-                  background: "transparent",
-                  border: "none",
-                  padding: "20px 24px",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                  gap: 16,
-                  cursor: "pointer",
-                  textAlign: "left",
-                }}
+    <section id="faq" className="py-24">
+      <div className="mx-auto max-w-[720px] px-5">
+        <FadeIn>
+          <div className="mb-16 text-center">
+            <h2 className="mb-4 text-3xl font-extrabold tracking-tight text-foreground md:text-4xl lg:text-5xl">
+              Questions{" "}
+              <span className="gradient-text">fréquentes</span>
+            </h2>
+            <p className="text-base leading-relaxed text-muted md:text-lg">
+              Vous ne trouvez pas votre réponse ?{" "}
+              <a
+                href="mailto:contact@qomand.fr"
+                className="text-primary no-underline hover:underline"
               >
-                <span
-                  style={{
-                    fontSize: 15,
-                    fontWeight: 600,
-                    color: "var(--foreground)",
-                    flex: 1,
-                  }}
+                contact@qomand.fr
+              </a>
+            </p>
+          </div>
+        </FadeIn>
+
+        <div className="flex flex-col gap-2.5">
+          {faqs.map((faq, i) => (
+            <FadeIn key={i} delay={i * 0.05}>
+              <div className="overflow-hidden rounded-xl border border-border bg-surface transition-colors hover:border-border-light">
+                <button
+                  onClick={() => setOpen(open === i ? null : i)}
+                  className="flex w-full cursor-pointer items-center justify-between gap-4 border-none bg-transparent px-6 py-5 text-left"
                 >
-                  {faq.q}
-                </span>
-                <svg
-                  width="18"
-                  height="18"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="var(--muted)"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  style={{
-                    flexShrink: 0,
-                    transform: open === i ? "rotate(180deg)" : "rotate(0deg)",
-                    transition: "transform 0.2s",
-                  }}
-                >
-                  <polyline points="6 9 12 15 18 9" />
-                </svg>
-              </button>
-              {open === i && (
+                  <span className="text-sm font-semibold text-foreground">
+                    {faq.q}
+                  </span>
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="shrink-0 text-muted transition-transform duration-200"
+                    style={{
+                      transform:
+                        open === i ? "rotate(180deg)" : "rotate(0deg)",
+                    }}
+                  >
+                    <polyline points="6 9 12 15 18 9" />
+                  </svg>
+                </button>
                 <div
+                  className="grid transition-all duration-300 ease-in-out"
                   style={{
-                    padding: "0 24px 20px",
-                    fontSize: 14,
-                    color: "var(--muted)",
-                    lineHeight: 1.75,
-                    borderTop: "1px solid var(--border)",
-                    paddingTop: 16,
+                    gridTemplateRows: open === i ? "1fr" : "0fr",
+                    opacity: open === i ? 1 : 0,
                   }}
                 >
-                  {faq.a}
+                  <div className="overflow-hidden">
+                    <div className="border-t border-border px-6 pb-5 pt-4 text-sm leading-relaxed text-muted">
+                      {faq.a}
+                    </div>
+                  </div>
                 </div>
-              )}
-            </div>
+              </div>
+            </FadeIn>
           ))}
         </div>
       </div>

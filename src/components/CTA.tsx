@@ -1,103 +1,51 @@
 "use client";
 
 import { REGISTER_URL, PRICING } from "@/lib/constants";
+import FadeIn from "./FadeIn";
 
 export default function CTA() {
   return (
-    <section
-      style={{
-        padding: "96px 24px",
-        position: "relative",
-        overflow: "hidden",
-        background: "var(--surface)",
-        borderTop: "1px solid var(--border)",
-      }}
-    >
+    <section className="relative overflow-hidden border-t border-border bg-surface py-24">
       {/* Glow */}
       <div
         aria-hidden
+        className="pointer-events-none absolute inset-0"
         style={{
-          position: "absolute",
-          inset: 0,
           background:
-            "radial-gradient(ellipse at 50% 50%, rgba(232,83,29,0.1) 0%, transparent 65%)",
-          pointerEvents: "none",
+            "radial-gradient(ellipse at 50% 50%, rgba(232,83,29,0.1) 0%, transparent 60%)",
         }}
       />
 
-      <div
-        style={{
-          maxWidth: 680,
-          margin: "0 auto",
-          textAlign: "center",
-          position: "relative",
-        }}
-      >
-        <h2
-          style={{
-            fontSize: "clamp(32px, 5vw, 52px)",
-            fontWeight: 800,
-            letterSpacing: "-0.03em",
-            color: "var(--foreground)",
-            margin: "0 0 20px",
-            lineHeight: 1.1,
-          }}
-        >
-          Prêt à moderniser{" "}
-          <span style={{ color: "var(--primary)" }}>votre restaurant ?</span>
-        </h2>
-        <p
-          style={{
-            fontSize: "clamp(16px, 2vw, 19px)",
-            color: "var(--muted)",
-            lineHeight: 1.65,
-            margin: "0 auto 48px",
-            maxWidth: 500,
-          }}
-        >
-          Commencez votre essai gratuit de {PRICING.trialDays} jours. Sans
-          carte bancaire. Sans engagement.
-        </p>
-
-        <a
-          href={REGISTER_URL}
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: 8,
-            background: "var(--primary)",
-            color: "white",
-            textDecoration: "none",
-            fontSize: 16,
-            fontWeight: 600,
-            padding: "16px 32px",
-            borderRadius: 10,
-            transition: "background 0.2s, transform 0.15s",
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.background = "var(--primary-hover)";
-            e.currentTarget.style.transform = "translateY(-1px)";
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.background = "var(--primary)";
-            e.currentTarget.style.transform = "translateY(0)";
-          }}
-        >
-          Démarrer l'essai gratuit
-          <svg
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
+      <FadeIn>
+        <div className="relative mx-auto max-w-2xl px-5 text-center">
+          <h2 className="mb-5 text-3xl font-extrabold leading-tight tracking-tight text-foreground md:text-4xl lg:text-5xl">
+            Prêt à moderniser{" "}
+            <span className="gradient-text">votre restaurant ?</span>
+          </h2>
+          <p className="mx-auto mb-10 max-w-md text-base leading-relaxed text-muted md:text-lg">
+            Commencez votre essai gratuit de {PRICING.trialDays} jours. Sans
+            carte bancaire. Sans engagement.
+          </p>
+          <a
+            href={REGISTER_URL}
+            className="inline-flex items-center gap-2 rounded-xl bg-primary px-8 py-4 text-base font-semibold text-white no-underline transition-all hover:bg-primary-hover hover:-translate-y-0.5 hover:shadow-xl"
           >
-            <path d="M5 12h14M12 5l7 7-7 7" />
-          </svg>
-        </a>
-      </div>
+            Démarrer l&apos;essai gratuit
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </a>
+        </div>
+      </FadeIn>
     </section>
   );
 }

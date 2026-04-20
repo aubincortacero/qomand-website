@@ -5,55 +5,27 @@ const restaurants = [
   "Sushi Zen",
   "Burger Factory",
   "La Table d'Auguste",
+  "Chez Marcel",
+  "L'Atelier Gourmand",
 ];
 
 export default function LogoBar() {
   return (
-    <section
-      style={{
-        borderTop: "1px solid var(--border)",
-        borderBottom: "1px solid var(--border)",
-        padding: "32px 24px",
-        background: "var(--surface)",
-      }}
-    >
-      <div style={{ maxWidth: 1200, margin: "0 auto" }}>
-        <p
-          style={{
-            textAlign: "center",
-            fontSize: 12,
-            color: "var(--muted)",
-            letterSpacing: "0.1em",
-            textTransform: "uppercase",
-            fontWeight: 600,
-            marginBottom: 24,
-            margin: "0 0 24px",
-          }}
-        >
-          Ils nous font confiance
-        </p>
-        <div
-          style={{
-            display: "flex",
-            flexWrap: "wrap",
-            gap: 12,
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          {restaurants.map((name) => (
+    <section className="overflow-hidden border-y border-border bg-surface py-8">
+      <p className="mb-6 text-center text-[11px] font-semibold uppercase tracking-[0.15em] text-muted">
+        Ils nous font confiance
+      </p>
+      <div className="relative">
+        {/* Gradient fade edges */}
+        <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 bg-gradient-to-r from-surface to-transparent" />
+        <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 bg-gradient-to-l from-surface to-transparent" />
+
+        {/* Marquee */}
+        <div className="flex w-max animate-marquee gap-6">
+          {[...restaurants, ...restaurants].map((name, i) => (
             <span
-              key={name}
-              style={{
-                padding: "8px 18px",
-                background: "var(--surface-1)",
-                border: "1px solid var(--border)",
-                borderRadius: 8,
-                fontSize: 14,
-                fontWeight: 500,
-                color: "var(--muted)",
-                whiteSpace: "nowrap",
-              }}
+              key={`${name}-${i}`}
+              className="shrink-0 rounded-lg border border-border bg-surface-1 px-5 py-2.5 text-sm font-medium text-muted"
             >
               {name}
             </span>

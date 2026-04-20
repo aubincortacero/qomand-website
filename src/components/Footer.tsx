@@ -1,5 +1,3 @@
-"use client";
-
 import { REGISTER_URL, LOGIN_URL } from "@/lib/constants";
 
 const columns = [
@@ -23,52 +21,24 @@ const columns = [
     title: "Légal",
     links: [
       { label: "Mentions légales", href: "/mentions-legales" },
-      { label: "Politique de confidentialité", href: "/politique-confidentialite" },
+      {
+        label: "Politique de confidentialité",
+        href: "/politique-confidentialite",
+      },
     ],
   },
 ];
 
 export default function Footer() {
   return (
-    <footer
-      style={{
-        borderTop: "1px solid var(--border)",
-        background: "var(--surface)",
-        padding: "64px 24px 40px",
-      }}
-    >
-      <div style={{ maxWidth: 1200, margin: "0 auto" }}>
-        {/* Top row */}
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1fr repeat(3, auto)",
-            gap: 48,
-            marginBottom: 48,
-          }}
-        >
+    <footer className="border-t border-border bg-surface px-5 pb-10 pt-16">
+      <div className="mx-auto max-w-[1200px]">
+        {/* Top */}
+        <div className="mb-12 grid gap-12 md:grid-cols-[1fr_auto_auto_auto] md:gap-16">
           {/* Brand */}
-          <div style={{ maxWidth: 280 }}>
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: 10,
-                marginBottom: 16,
-              }}
-            >
-              <div
-                style={{
-                  width: 32,
-                  height: 32,
-                  background: "var(--primary)",
-                  borderRadius: 8,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  flexShrink: 0,
-                }}
-              >
+          <div className="max-w-[280px]">
+            <div className="mb-4 flex items-center gap-2.5">
+              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary">
                 <svg
                   width="18"
                   height="18"
@@ -87,72 +57,28 @@ export default function Footer() {
                   <path d="M17 14v4" />
                 </svg>
               </div>
-              <span
-                style={{
-                  fontWeight: 700,
-                  fontSize: 20,
-                  color: "var(--foreground)",
-                  letterSpacing: "-0.02em",
-                }}
-              >
+              <span className="text-xl font-bold tracking-tight text-foreground">
                 Qomand
               </span>
             </div>
-            <p
-              style={{
-                fontSize: 14,
-                color: "var(--muted)",
-                lineHeight: 1.65,
-                margin: 0,
-              }}
-            >
+            <p className="text-sm leading-relaxed text-muted">
               Menu QR code et commandes en ligne pour les restaurants. Simple,
               rapide, sans application.
             </p>
           </div>
 
-          {/* Link columns */}
+          {/* Columns */}
           {columns.map((col) => (
             <div key={col.title}>
-              <p
-                style={{
-                  fontSize: 12,
-                  fontWeight: 600,
-                  color: "var(--muted)",
-                  letterSpacing: "0.08em",
-                  textTransform: "uppercase",
-                  margin: "0 0 16px",
-                }}
-              >
+              <p className="mb-4 text-[11px] font-semibold uppercase tracking-[0.1em] text-muted">
                 {col.title}
               </p>
-              <ul
-                style={{
-                  listStyle: "none",
-                  padding: 0,
-                  margin: 0,
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: 10,
-                }}
-              >
+              <ul className="m-0 flex list-none flex-col gap-2.5 p-0">
                 {col.links.map((link) => (
                   <li key={link.label}>
                     <a
                       href={link.href}
-                      style={{
-                        fontSize: 14,
-                        color: "var(--muted)",
-                        textDecoration: "none",
-                        transition: "color 0.2s",
-                      }}
-                      onMouseEnter={(e) =>
-                        ((e.target as HTMLElement).style.color =
-                          "var(--foreground)")
-                      }
-                      onMouseLeave={(e) =>
-                        ((e.target as HTMLElement).style.color = "var(--muted)")
-                      }
+                      className="text-sm text-muted no-underline transition-colors hover:text-foreground"
                     >
                       {link.label}
                     </a>
@@ -163,24 +89,12 @@ export default function Footer() {
           ))}
         </div>
 
-        {/* Bottom row */}
-        <div
-          style={{
-            borderTop: "1px solid var(--border)",
-            paddingTop: 28,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            flexWrap: "wrap",
-            gap: 12,
-          }}
-        >
-          <p style={{ fontSize: 13, color: "var(--muted)", margin: 0 }}>
+        {/* Bottom */}
+        <div className="flex flex-wrap items-center justify-between gap-3 border-t border-border pt-7">
+          <p className="text-xs text-muted">
             © {new Date().getFullYear()} Qomand. Tous droits réservés.
           </p>
-          <p style={{ fontSize: 13, color: "var(--muted)", margin: 0 }}>
-            Fait avec ❤️ en France
-          </p>
+          <p className="text-xs text-muted">Fait avec ❤️ en France</p>
         </div>
       </div>
     </footer>

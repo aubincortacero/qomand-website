@@ -1,21 +1,23 @@
+import FadeIn from "./FadeIn";
+
 const steps = [
   {
     number: 1,
     title: "Créez votre menu",
     description:
-      "Ajoutez vos plats, catégories, photos et prix depuis votre tableau de bord en quelques minutes. Aucune compétence technique requise.",
+      "Ajoutez vos plats, catégories, photos et prix depuis votre tableau de bord en quelques minutes.",
   },
   {
     number: 2,
     title: "Imprimez votre QR code",
     description:
-      "Téléchargez le QR code unique de votre restaurant et disposez-le sur vos tables, votre comptoir ou vos vitrines.",
+      "Téléchargez le QR code unique de votre restaurant et disposez-le sur vos tables.",
   },
   {
     number: 3,
     title: "Recevez les commandes",
     description:
-      "Vos clients commandent et paient depuis leur téléphone. Vous recevez chaque commande en temps réel sur votre écran.",
+      "Vos clients commandent et paient depuis leur téléphone. Vous recevez chaque commande en temps réel.",
   },
 ];
 
@@ -23,106 +25,43 @@ export default function HowItWorks() {
   return (
     <section
       id="how-it-works"
-      style={{
-        padding: "96px 24px",
-        background: "var(--surface)",
-        borderTop: "1px solid var(--border)",
-        borderBottom: "1px solid var(--border)",
-      }}
+      className="border-y border-border bg-surface py-24"
     >
-      <div style={{ maxWidth: 1200, margin: "0 auto" }}>
-        {/* Header */}
-        <div style={{ textAlign: "center", maxWidth: 600, margin: "0 auto 64px" }}>
-          <h2
-            style={{
-              fontSize: "clamp(28px, 4vw, 42px)",
-              fontWeight: 800,
-              letterSpacing: "-0.03em",
-              color: "var(--foreground)",
-              margin: "0 0 16px",
-            }}
-          >
-            Opérationnel en{" "}
-            <span style={{ color: "var(--primary)" }}>moins de 20 minutes</span>
-          </h2>
-          <p
-            style={{
-              fontSize: "clamp(15px, 1.8vw, 18px)",
-              color: "var(--muted)",
-              lineHeight: 1.65,
-              margin: 0,
-            }}
-          >
-            Trois étapes simples pour transformer l'expérience de vos clients.
-          </p>
-        </div>
+      <div className="mx-auto max-w-[1200px] px-5">
+        <FadeIn>
+          <div className="mx-auto mb-16 max-w-xl text-center">
+            <h2 className="mb-4 text-3xl font-extrabold tracking-tight text-foreground md:text-4xl lg:text-5xl">
+              Opérationnel en{" "}
+              <span className="gradient-text">moins de 5 minutes</span>
+            </h2>
+            <p className="text-base leading-relaxed text-muted md:text-lg">
+              Trois étapes simples pour transformer l&apos;expérience de vos
+              clients.
+            </p>
+          </div>
+        </FadeIn>
 
-        {/* Steps */}
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
-            gap: 32,
-            position: "relative",
-          }}
-        >
-          {steps.map((step) => (
-            <div
-              key={step.number}
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                textAlign: "center",
-                padding: "40px 28px",
-                background: "var(--surface-1)",
-                border: "1px solid var(--border)",
-                borderRadius: 16,
-                position: "relative",
-              }}
-            >
-              {/* Number circle */}
-              <div
-                style={{
-                  width: 56,
-                  height: 56,
-                  background: "var(--primary)",
-                  borderRadius: "50%",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  fontSize: 22,
-                  fontWeight: 800,
-                  color: "white",
-                  marginBottom: 24,
-                  letterSpacing: "-0.02em",
-                  flexShrink: 0,
-                }}
-              >
-                {step.number}
+        <div className="relative grid gap-6 md:grid-cols-3 md:gap-8">
+          {/* Connecting line (desktop) */}
+          <div className="pointer-events-none absolute left-0 right-0 top-[72px] z-0 hidden md:block">
+            <div className="mx-auto h-px w-[66%] bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
+          </div>
+
+          {steps.map((step, i) => (
+            <FadeIn key={step.number} delay={i * 0.15}>
+              <div className="relative flex flex-col items-center rounded-2xl border border-border bg-surface-1 p-8 text-center transition-all duration-300 hover:border-border-light">
+                {/* Number */}
+                <div className="relative z-10 mb-6 flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-primary to-primary-light text-xl font-extrabold text-white shadow-lg shadow-primary/20">
+                  {step.number}
+                </div>
+                <h3 className="mb-3 text-xl font-bold tracking-tight text-foreground">
+                  {step.title}
+                </h3>
+                <p className="text-sm leading-relaxed text-muted">
+                  {step.description}
+                </p>
               </div>
-              <h3
-                style={{
-                  fontSize: 20,
-                  fontWeight: 700,
-                  color: "var(--foreground)",
-                  margin: "0 0 12px",
-                  letterSpacing: "-0.02em",
-                }}
-              >
-                {step.title}
-              </h3>
-              <p
-                style={{
-                  fontSize: 14,
-                  color: "var(--muted)",
-                  lineHeight: 1.7,
-                  margin: 0,
-                }}
-              >
-                {step.description}
-              </p>
-            </div>
+            </FadeIn>
           ))}
         </div>
       </div>
