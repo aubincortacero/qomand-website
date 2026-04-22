@@ -37,29 +37,9 @@ export default function Footer() {
         <div className="mb-12 grid gap-12 md:grid-cols-[1fr_auto_auto_auto] md:gap-16">
           {/* Brand */}
           <div className="max-w-[280px]">
-            <div className="mb-4 flex items-center gap-2.5">
-              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary">
-                <svg
-                  width="18"
-                  height="18"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="white"
-                  strokeWidth="2.2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <rect x="3" y="3" width="7" height="7" rx="1" />
-                  <rect x="14" y="3" width="7" height="7" rx="1" />
-                  <rect x="3" y="14" width="7" height="7" rx="1" />
-                  <circle cx="17.5" cy="17.5" r="2" />
-                  <path d="M14 14h4" />
-                  <path d="M17 14v4" />
-                </svg>
-              </div>
-              <span className="text-xl font-bold tracking-tight text-foreground">
-                Qomand
-              </span>
+            <div className="mb-4">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/logo-blanc.svg" alt="Qomand" className="h-7 w-auto" />
             </div>
             <p className="text-sm leading-relaxed text-muted">
               Menu QR code et commandes en ligne pour les restaurants. Simple,

@@ -111,27 +111,6 @@ const features = [
       "Suivez vos ventes, vos plats les plus populaires et vos heures de pointe en temps réel.",
     span: "md:col-span-2",
   },
-  {
-    icon: (
-      <svg
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <circle cx="12" cy="12" r="10" />
-        <line x1="2" y1="12" x2="22" y2="12" />
-        <path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z" />
-      </svg>
-    ),
-    title: "Multi-langue",
-    description:
-      "Menu automatiquement traduit pour vos clients internationaux. Français, anglais, espagnol et plus.",
-  },
 ];
 
 export default function Features() {
