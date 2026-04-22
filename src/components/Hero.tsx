@@ -20,7 +20,7 @@ function PhoneMockup() {
         {/* Screenshot – place your mobile screenshot at /public/phone-hero.png */}
         <div className="relative h-[calc(100%-40px)] w-full overflow-hidden">
           <Image
-            src="/phone-hero.jpeg"
+            src="/phone-hero.jpg"
             alt="Interface Qomand — commande depuis la table"
             fill
             className="object-cover object-top"
