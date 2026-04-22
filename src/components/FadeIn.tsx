@@ -7,7 +7,7 @@ export default function FadeIn({
   className = "",
   delay = 0,
   direction = "up",
-}: {
+}: { 
   children: ReactNode;
   className?: string;
   delay?: number;

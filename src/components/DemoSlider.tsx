@@ -153,10 +153,9 @@ export default function DemoSlider() {
                 <div
                   key={slide.id}
                   aria-hidden={active !== i}
-                  className="absolute inset-0 transition-[opacity,transform] duration-500 ease-in-out"
+                  className="absolute inset-0 transition-opacity duration-500 ease-in-out"
                   style={{
                     opacity: active === i ? 1 : 0,
-                    transform: active === i ? "scale(1)" : "scale(1.025)",
                     pointerEvents: active === i ? "auto" : "none",
                     zIndex: active === i ? 1 : 0,
                   }}
