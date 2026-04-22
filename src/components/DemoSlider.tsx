@@ -174,7 +174,7 @@ export default function DemoSlider() {
               {/* Floating vertical nav */}
               <nav
                 aria-label="Navigation démo"
-                className="absolute left-3 top-1/2 z-10 -translate-y-1/2"
+                className="absolute left-3 top-1/2 z-10 -translate-y-1/2 hidden md:block"
               >
                 <div className="flex flex-col gap-0.5 rounded-xl border border-white/10 bg-black/65 px-1.5 py-1.5 shadow-xl backdrop-blur-md">
                   {slides.map((slide, i) => {
@@ -209,7 +209,7 @@ export default function DemoSlider() {
         </FadeIn>
 
         {/* Mobile tab bar (visible below md) */}
-        <div className="mt-4 flex gap-2 overflow-x-auto pb-1 md:hidden no-scrollbar">
+        <div className="mt-4 flex gap-2 overflow-x-auto pb-1 md:hidden no-scrollbar" role="tablist">
           {slides.map((slide, i) => {
             const isActive = active === i;
             return (
