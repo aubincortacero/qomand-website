@@ -69,29 +69,13 @@ export default function Navbar() {
       <header className="glass sticky top-0 z-50 border-b border-border">
         <div className="mx-auto flex h-16 max-w-[1200px] items-center justify-between px-5">
           {/* Logo */}
-          <a href="/" className="flex items-center gap-2.5 no-underline">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
-              <svg
-                width="18"
-                height="18"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="white"
-                strokeWidth="2.2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <rect x="3" y="3" width="7" height="7" rx="1" />
-                <rect x="14" y="3" width="7" height="7" rx="1" />
-                <rect x="3" y="14" width="7" height="7" rx="1" />
-                <circle cx="17.5" cy="17.5" r="2" />
-                <path d="M14 14h4" />
-                <path d="M17 14v4" />
-              </svg>
-            </div>
-            <span className="text-xl font-bold tracking-tight text-foreground">
-              Qomand
-            </span>
+          <a href="/" className="flex items-center no-underline">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/logo-blanc.svg"
+              alt="Qomand"
+              className="h-7 w-auto"
+            />
           </a>
 
           {/* Desktop nav */}

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import FadeIn from "./FadeIn";
 import { REGISTER_URL, PRICING } from "@/lib/constants";
 
@@ -10,120 +11,21 @@ function PhoneMockup() {
       <div className="absolute -inset-8 -z-10 rounded-full bg-primary/20 blur-3xl" />
 
       {/* Phone frame */}
-      <div className="absolute inset-0 overflow-hidden rounded-[2.5rem] border border-border-light bg-gradient-to-b from-surface-2 to-surface shadow-2xl shadow-black/60">
+      <div className="absolute inset-0 overflow-hidden rounded-[2.5rem] border-[6px] border-border-light bg-black shadow-2xl shadow-black/60">
         {/* Notch */}
-        <div className="relative flex h-10 items-end justify-center pb-0.5">
-          <div className="h-5 w-20 rounded-b-xl bg-black" />
+        <div className="relative flex h-10 shrink-0 items-end justify-center bg-black pb-0.5">
+          <div className="h-5 w-20 rounded-b-xl bg-zinc-900" />
         </div>
 
-        {/* Screen content */}
-        <div className="px-3.5 pb-3">
-          {/* Header */}
-          <div className="mb-3 flex items-center justify-between">
-            <div>
-              <p className="text-xs font-bold text-foreground">
-                La Table d&apos;Auguste
-              </p>
-              <p className="text-[10px] text-muted">Table 4 · 2 convives</p>
-            </div>
-            <div className="flex items-center gap-1.5 rounded-lg border border-border bg-surface-2 px-2 py-1">
-              <svg
-                width="12"
-                height="12"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                className="text-primary"
-              >
-                <circle cx="9" cy="21" r="1" />
-                <circle cx="20" cy="21" r="1" />
-                <path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6" />
-              </svg>
-              <span className="text-[10px] font-semibold text-foreground">
-                0
-              </span>
-            </div>
-          </div>
-
-          {/* Search bar */}
-          <div className="mb-3 rounded-xl border border-border bg-surface-2 px-3 py-2">
-            <p className="text-[10px] text-muted">🔍 Rechercher un plat...</p>
-          </div>
-
-          {/* Categories */}
-          <div className="mb-3 flex gap-1.5 overflow-hidden">
-            <div className="shrink-0 rounded-full bg-primary px-2.5 py-1 text-[10px] font-semibold text-white">
-              Entrées
-            </div>
-            <div className="shrink-0 rounded-full border border-border bg-surface-2 px-2.5 py-1 text-[10px] text-muted">
-              Plats
-            </div>
-            <div className="shrink-0 rounded-full border border-border bg-surface-2 px-2.5 py-1 text-[10px] text-muted">
-              Desserts
-            </div>
-            <div className="shrink-0 rounded-full border border-border bg-surface-2 px-2.5 py-1 text-[10px] text-muted">
-              Boissons
-            </div>
-          </div>
-
-          {/* Food items */}
-          <div className="space-y-2">
-            {[
-              {
-                name: "Tartare de saumon",
-                desc: "Avocat, sésame, agrumes",
-                price: "14,50 €",
-                gradient: "from-amber-900/40 to-orange-900/20",
-              },
-              {
-                name: "Velouté de champignons",
-                desc: "Crème de truffe, croûtons",
-                price: "7,00 €",
-                gradient: "from-emerald-900/30 to-green-900/20",
-              },
-              {
-                name: "Œufs mimosa",
-                desc: "Mayonnaise maison, ciboulette",
-                price: "2,50 €",
-                gradient: "from-yellow-900/30 to-amber-900/20",
-              },
-            ].map((item) => (
-              <div
-                key={item.name}
-                className="overflow-hidden rounded-xl border border-border bg-surface-2"
-              >
-                <div
-                  className={`h-16 bg-gradient-to-br ${item.gradient}`}
-                />
-                <div className="p-2.5">
-                  <p className="text-[11px] font-semibold text-foreground">
-                    {item.name}
-                  </p>
-                  <p className="mt-0.5 text-[9px] text-muted">{item.desc}</p>
-                  <div className="mt-1.5 flex items-center justify-between">
-                    <span className="text-xs font-bold text-primary">
-                      {item.price}
-                    </span>
-                    <div className="flex h-5 w-5 items-center justify-center rounded-md bg-primary text-[10px] font-bold text-white">
-                      +
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Cart bar */}
-          <div className="mt-3 flex items-center justify-between rounded-xl bg-primary p-2.5">
-            <div>
-              <p className="text-[9px] text-white/70">Panier</p>
-              <p className="text-[11px] font-bold text-white">0,00 €</p>
-            </div>
-            <p className="text-[10px] font-semibold text-white">
-              Voir le panier →
-            </p>
-          </div>
+        {/* Screenshot – place your mobile screenshot at /public/phone-hero.png */}
+        <div className="relative h-[calc(100%-40px)] w-full overflow-hidden">
+          <Image
+            src="/phone-hero.png"
+            alt="Interface Qomand — commande depuis la table"
+            fill
+            className="object-cover object-top"
+            priority
+          />
         </div>
       </div>
     </div>
