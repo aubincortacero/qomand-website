@@ -13,12 +13,12 @@ function PhoneMockup() {
       {/* Phone frame */}
       <div className="absolute inset-0 overflow-hidden rounded-[2.5rem] border-[6px] border-border-light bg-black shadow-2xl shadow-black/60">
         {/* Notch */}
-        <div className="relative flex h-10 shrink-0 items-end justify-center bg-black pb-0.5">
+        <div className="absolute flex h-10 shrink-0 items-end justify-center bg-black pb-0.5">
           <div className="h-5 w-20 rounded-b-xl bg-zinc-900" />
         </div>
 
         {/* Screenshot – place your mobile screenshot at /public/phone-hero.png */}
-        <div className="relative h-[calc(100%-40px)] w-full overflow-hidden">
+        <div className="pb-5 relative h-[calc(100%-40px)] w-full overflow-hidden">
           <Image
             src="/phone-hero.jpg"
             alt="Interface Qomand — commande depuis la table"
