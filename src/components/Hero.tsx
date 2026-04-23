@@ -18,7 +18,7 @@ function PhoneMockup() {
           style={{
             zIndex: 10,
             background: "transparent",
-            height: "15px",
+            height: "10px",
           }}
         >
           <div className="h-3 w-24 rounded-b-xl bg-zinc-900" />
