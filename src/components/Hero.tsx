@@ -97,7 +97,7 @@ export default function Hero() {
                   </svg>
                 </a>
                 <a
-                  href="#how-it-works"
+                  href="#demo"
                   className="inline-flex items-center gap-2 rounded-xl border border-border-light px-6 py-3.5 text-base font-medium text-foreground no-underline transition-all hover:border-muted hover:-translate-y-0.5"
                 >
                   Voir la démo

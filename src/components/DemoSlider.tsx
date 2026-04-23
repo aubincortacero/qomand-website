@@ -105,7 +105,7 @@ export default function DemoSlider() {
   const [active, setActive] = useState(0);
 
   return (
-    <section className="overflow-hidden py-20">
+    <section className="overflow-hidden py-20" id="demo">
       <div className="mx-auto max-w-[1200px] px-5">
 
         {/* Header */}
