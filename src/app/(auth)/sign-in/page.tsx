@@ -42,6 +42,13 @@ export default function SignInPage() {
         padding: "40px 36px",
       }}
     >
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", marginBottom: 32 }}>
+        <img
+          src="/logo-blanc.svg"
+          alt="Qomand"
+          style={{ height: 45, width: "auto", marginBottom: 18 }}
+        />
+      </div>
       <h1
         style={{
           fontSize: 24,
