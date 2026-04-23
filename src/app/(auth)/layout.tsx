@@ -29,8 +29,6 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
         }}
       />
 
-      
-
       <div style={{ width: "100%", maxWidth: 420, position: "relative" }}>
         {children}
       </div>
