@@ -13,8 +13,15 @@ function PhoneMockup() {
       {/* Phone frame */}
       <div className="absolute inset-0 overflow-hidden rounded-[2.5rem] border-[6px] border-border-light bg-black shadow-2xl shadow-black/60">
         {/* Notch */}
-        <div className="absolute flex h-10 shrink-0 items-end justify-center bg-black pb-0.5">
-          <div className="h-5 w-20 rounded-b-xl bg-zinc-900" />
+        <div
+          className="absolute left-0 top-0 flex w-full items-center justify-center"
+          style={{
+            zIndex: 10,
+            background: "transparent",
+            height: "15px",
+          }}
+        >
+          <div className="h-3 w-24 rounded-b-xl bg-zinc-900" />
         </div>
 
         {/* Screenshot – place your mobile screenshot at /public/phone-hero.png */}
