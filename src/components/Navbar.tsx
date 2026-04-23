@@ -72,7 +72,7 @@ export default function Navbar() {
           <a href="/" className="flex items-center no-underline">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/logo-blanc.svg"
+              src="/logo-blanc-f.svg"
               alt="Qomand"
               style={{ height: '35px', width: "auto" }}
             />

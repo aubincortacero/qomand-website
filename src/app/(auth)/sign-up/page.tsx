@@ -44,7 +44,7 @@ export default function SignUpPage() {
     >
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", marginBottom: 32 }}>
         <img
-          src="/logo-blanc.svg"
+          src="/logo-blanc-f.svg"
           alt="Qomand"
           style={{ height: 45, width: "auto", marginBottom: 18 }}
         />
