@@ -74,7 +74,7 @@ export default function Navbar() {
             <img
               src="/logo-blanc.svg"
               alt="Qomand"
-              style={{ height: 45, width: "auto" }}
+              style={{ height: '35px', width: "auto" }}
             />
           </a>
 
