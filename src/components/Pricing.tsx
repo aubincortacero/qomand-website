@@ -5,10 +5,11 @@ import FadeIn from "./FadeIn";
 
 const included = [
   "Menu QR code illimité",
+  "Plan de table interactif",
   "Commandes reçues en temps réel",
+  "Pickup & collect disponible",
   "Paiement en ligne intégré",
-  "Statistiques & rapports",
-  "Support prioritaire par email",
+  "Support local réactif",
   "Mises à jour incluses",
 ];
 
@@ -56,14 +57,9 @@ export default function Pricing() {
                     <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-primary" />
                   </span>
                   <span className="text-xs font-semibold text-primary">
-                    {PRICING.trialDays} jours gratuits — sans carte bancaire
+                    Plan Pro - {PRICING.trialDays} jours gratuits
                   </span>
                 </div>
-
-                {/* Plan name */}
-                <p className="mb-3 text-xs font-semibold uppercase tracking-[0.1em] text-muted">
-                  Plan Pro
-                </p>
 
                 {/* Price */}
                 <div className="mb-2 flex items-end gap-2">
@@ -129,7 +125,7 @@ export default function Pricing() {
                 </a>
 
                 <p className="mt-4 text-center text-xs text-muted">
-                  Sans carte bancaire · Annulation à tout moment
+                  Par IBAN / Annulation à tout moment
                 </p>
               </div>
             </div>
