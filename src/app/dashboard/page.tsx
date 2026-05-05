@@ -149,19 +149,17 @@ export default async function DashboardPage() {
           style={{
             position: "relative",
             background: isTrialActive || !isSubscribed
-              ? "linear-gradient(135deg, rgba(232,83,29,0.12) 0%, rgba(232,83,29,0.05) 100%)"
+              ? "var(--surface)"
               : "linear-gradient(135deg, rgba(34,197,94,0.08) 0%, var(--surface) 60%)",
             border: `2px solid ${
               isTrialActive || !isSubscribed
-                ? "var(--primary)"
+                ? "#E76F51"
                 : "rgba(34,197,94,0.3)"
             }`,
             borderRadius: 16,
             padding: "32px",
             marginBottom: 32,
-            boxShadow: isTrialActive || !isSubscribed
-              ? "0 4px 24px rgba(232,83,29,0.15)"
-              : "none",
+            boxShadow: "none",
           }}
         >
             <div
@@ -181,11 +179,11 @@ export default async function DashboardPage() {
                     gap: 8,
                     background: isSubscribed
                       ? "rgba(34,197,94,0.15)"
-                      : "rgba(232,83,29,0.2)",
+                      : "rgba(231,111,81,0.2)",
                     border: `1px solid ${
                       isSubscribed
                         ? "rgba(34,197,94,0.3)"
-                        : "rgba(232,83,29,0.4)"
+                        : "rgba(231,111,81,0.4)"
                     }`,
                     borderRadius: 999,
                     padding: "6px 14px",
@@ -206,7 +204,7 @@ export default async function DashboardPage() {
                       display: "inline-block",
                       boxShadow: isSubscribed
                         ? "0 0 8px rgba(34,197,94,0.6)"
-                        : "0 0 8px rgba(232,83,29,0.6)",
+                        : "0 0 8px rgba(231,111,81,0.6)",
                     }}
                   />
                   {isSubscribed ? "Abonnement actif" : isTrialActive ? "Essai gratuit actif" : "Essai expiré"}
@@ -257,7 +255,7 @@ export default async function DashboardPage() {
                   borderRadius: 12,
                   whiteSpace: "nowrap",
                   flexShrink: 0,
-                  boxShadow: "0 4px 16px rgba(232,83,29,0.3)",
+                  boxShadow: "0 4px 16px rgba(231,111,81,0.3)",
                   transition: "all 0.2s ease",
                 }}
               >
@@ -283,8 +281,8 @@ export default async function DashboardPage() {
           href={APP_ROUTES.dashboard}
           style={{
             position: "relative",
-            background: "linear-gradient(135deg, rgba(232,83,29,0.12) 0%, var(--surface) 50%)",
-            border: "1px solid rgba(232,83,29,0.3)",
+            background: "linear-gradient(135deg, rgba(231,111,81,0.12) 0%, var(--surface) 50%)",
+            border: "1px solid rgba(231,111,81,0.3)",
             borderRadius: 16,
             padding: "32px",
             textDecoration: "none",
@@ -306,7 +304,7 @@ export default async function DashboardPage() {
               right: -50,
               width: 200,
               height: 200,
-              background: "radial-gradient(circle, rgba(232,83,29,0.15) 0%, transparent 70%)",
+              background: "radial-gradient(circle, rgba(231,111,81,0.15) 0%, transparent 70%)",
               pointerEvents: "none",
             }}
           />
@@ -322,7 +320,7 @@ export default async function DashboardPage() {
                 alignItems: "center",
                 justifyContent: "center",
                 marginBottom: 16,
-                boxShadow: "0 4px 12px rgba(232,83,29,0.25)",
+                boxShadow: "0 4px 12px rgba(231,111,81,0.25)",
               }}
             >
               <svg

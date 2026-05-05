@@ -160,6 +160,25 @@ export default function Navbar() {
                         <line x1="10" y1="14" x2="21" y2="3" />
                       </svg>
                     </a>
+                    <a
+                      href="/dashboard"
+                      onClick={() => setOpen(false)}
+                      className="flex items-center justify-between rounded-xl border border-primary px-3.5 py-3 text-sm font-bold text-primary no-underline transition-colors hover:bg-primary/10"
+                    >
+                      Mon espace client
+                      <svg
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2.2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <path d="M5 12h14M12 5l7 7-7 7" />
+                      </svg>
+                    </a>
                     <div className="border-t border-border" />
                     <button
                       onClick={handleSignOut}
