@@ -10,12 +10,21 @@ function PhoneMockup() {
       {/* Glow behind phone */}
       <div className="absolute -inset-8 -z-10 rounded-full bg-primary/20 blur-3xl" />
 
-      {/* Apple Pay logo floating bottom right */}
-      <div className="absolute -bottom-8 -right-8 z-20 animate-float-delayed">
+      {/* Payment logos floating bottom right */}
+      <div className="absolute -bottom-8 -right-12 z-20 flex gap-3 animate-float-delayed">
         <div className="rounded-2xl bg-white p-3 shadow-2xl">
           <Image
             src="/apple-pay.png"
             alt="Apple Pay"
+            width={60}
+            height={60}
+            className="object-contain"
+          />
+        </div>
+        <div className="rounded-2xl bg-white p-3 shadow-2xl">
+          <Image
+            src="/gpay.jpg"
+            alt="Google Pay"
             width={60}
             height={60}
             className="object-contain"
