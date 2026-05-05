@@ -160,7 +160,7 @@ export default async function DashboardPage() {
             padding: "32px",
             marginBottom: 32,
             boxShadow: "none",
-          }}
+          }} 
         >
             <div
               style={{

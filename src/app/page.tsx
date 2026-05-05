@@ -1,7 +1,7 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import DemoSlider from "@/components/DemoSlider";
-import LogoBar from "@/components/LogoBar";
+// import LogoBar from "@/components/LogoBar";
 import Features from "@/components/Features";
 import HowItWorks from "@/components/HowItWorks";
 import Pricing from "@/components/Pricing";
@@ -16,7 +16,7 @@ export default function Home() {
       <Navbar />
       <Hero />
       <DemoSlider />
-      <LogoBar />
+      {/* <LogoBar /> */}
       <Features />
       <HowItWorks />
       <Pricing />

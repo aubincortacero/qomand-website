@@ -144,10 +144,10 @@ export default function Hero() {
         <FadeIn delay={0.5}>
           <div className="mt-20 grid grid-cols-2 gap-6 rounded-2xl border border-border bg-surface/80 px-8 py-8 md:grid-cols-4 md:gap-8">
             {[
-              { value: "200+", label: "Restaurants actifs" },
-              { value: "50K+", label: "Commandes / mois" },
-              { value: "<5min", label: "Pour démarrer" },
-              { value: "4.9/5", label: "Satisfaction client" },
+              { value: "14 jours", label: "Essai gratuit" },
+              { value: "100%", label: "Sans engagement" },
+              { value: "Local", label: "Support réactif" },
+              { value: "Sur place", label: "Installation incluse" },
             ].map(({ value, label }) => (
               <div key={label} className="text-center">
                 <p className="text-2xl font-extrabold tracking-tight text-foreground md:text-3xl">
