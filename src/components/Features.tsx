@@ -112,6 +112,28 @@ const features = [
     description:
       "Suivez vos ventes, vos plats les plus populaires et vos heures de pointe en temps réel.",
   },
+  {
+    icon: (
+      <svg
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <path d="M12 2L2 7l10 5 10-5-10-5z" />
+        <path d="M2 17l10 5 10-5" />
+        <path d="M2 12l10 5 10-5" />
+      </svg>
+    ),
+    title: "Ajout du menu avec IA",
+    description:
+      "Créez votre menu en quelques secondes grâce à l'intelligence artificielle. Descriptions et tarifs générés automatiquement.",
+    special: "ai",
+  },
 ];
 
 export default function Features() {
@@ -154,10 +176,10 @@ export default function Features() {
         </FadeIn>
 
         {/* Slider controls */}
-        <div className="mb-6 flex justify-end gap-2">
+        <div className="mb-6 flex justify-center gap-2">
           <button
             onClick={() => scroll("left")}
-            className="flex h-10 w-10 items-center justify-center rounded-full border border-border bg-surface text-muted transition-colors hover:border-primary hover:text-primary"
+            className="flex h-10 w-10 items-center justify-center rounded-full border border-primary bg-transparent text-primary transition-all hover:bg-primary/10"
             aria-label="Précédent"
           >
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -166,7 +188,7 @@ export default function Features() {
           </button>
           <button
             onClick={() => scroll("right")}
-            className="flex h-10 w-10 items-center justify-center rounded-full border border-border bg-surface text-muted transition-colors hover:border-primary hover:text-primary"
+            className="flex h-10 w-10 items-center justify-center rounded-full border border-primary bg-transparent text-primary transition-all hover:bg-primary/10"
             aria-label="Suivant"
           >
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -186,22 +208,35 @@ export default function Features() {
             className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide"
             style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
           >
-            {features.map((f, i) => (
-              <div
-                key={f.title}
-                className="group h-[400px] w-[320px] flex-shrink-0 rounded-2xl border border-border bg-surface p-7 transition-all duration-300 hover:border-border-light hover:bg-surface-1 flex flex-col justify-end"
-              >
-                <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl border border-border bg-surface-1 text-primary transition-colors group-hover:border-primary/30 group-hover:bg-primary/10">
-                  {f.icon}
+            {features.map((f, i) => {
+              const isAI = f.special === "ai";
+              return (
+                <div
+                  key={f.title}
+                  className={`group h-[400px] w-[320px] flex-shrink-0 rounded-2xl border p-7 transition-all duration-300 flex flex-col justify-end ${
+                    isAI
+                      ? "border-purple-500 bg-surface hover:border-purple-400 hover:bg-surface-1"
+                      : "border-border bg-surface hover:border-border-light hover:bg-surface-1"
+                  }`}
+                >
+                  <div
+                    className={`mb-5 flex h-12 w-12 items-center justify-center rounded-xl border transition-colors ${
+                      isAI
+                        ? "border-purple-500 bg-surface-1 text-purple-400 group-hover:border-purple-400 group-hover:bg-purple-500/10"
+                        : "border-border bg-surface-1 text-primary group-hover:border-primary/30 group-hover:bg-primary/10"
+                    }`}
+                  >
+                    {f.icon}
+                  </div>
+                  <h3 className="mb-2 text-lg font-bold tracking-tight text-foreground">
+                    {f.title}
+                  </h3>
+                  <p className="text-sm leading-relaxed text-muted">
+                    {f.description}
+                  </p>
                 </div>
-                <h3 className="mb-2 text-lg font-bold tracking-tight text-foreground">
-                  {f.title}
-                </h3>
-                <p className="text-sm leading-relaxed text-muted">
-                  {f.description}
-                </p>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </div>
