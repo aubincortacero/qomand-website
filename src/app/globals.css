@@ -15,6 +15,7 @@
 
   --animate-marquee: marquee 40s linear infinite;
   --animate-float: float 6s ease-in-out infinite;
+  --animate-float-delayed: float-delayed 6s ease-in-out infinite;
 }
 
 @keyframes marquee {
@@ -25,6 +26,11 @@
 @keyframes float {
   0%, 100% { transform: translateY(0px); }
   50% { transform: translateY(-12px); }
+}
+
+@keyframes float-delayed {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-16px); }
 }
 
 * {
@@ -90,4 +96,18 @@ body {
 
 .no-scrollbar::-webkit-scrollbar {
   display: none;
+}
+
+@layer utilities {
+  .animate-float {
+    animation: var(--animate-float);
+  }
+  
+  .animate-float-delayed {
+    animation: var(--animate-float-delayed);
+  }
+  
+  .animate-marquee {
+    animation: var(--animate-marquee);
+  }
 }

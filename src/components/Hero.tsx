@@ -10,6 +10,19 @@ function PhoneMockup() {
       {/* Glow behind phone */}
       <div className="absolute -inset-8 -z-10 rounded-full bg-primary/20 blur-3xl" />
 
+      {/* Apple Pay logo floating bottom right */}
+      <div className="absolute -bottom-8 -right-8 z-20 animate-float-delayed">
+        <div className="rounded-2xl bg-white p-3 shadow-2xl">
+          <Image
+            src="/apple-pay.png"
+            alt="Apple Pay"
+            width={60}
+            height={60}
+            className="object-contain"
+          />
+        </div>
+      </div>
+
       {/* Phone frame */}
       <div className="absolute inset-0 overflow-hidden rounded-[2.5rem] border-[6px] border-border-light bg-black shadow-2xl shadow-black/60">
         {/* Notch */}
