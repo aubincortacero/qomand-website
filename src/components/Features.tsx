@@ -47,7 +47,7 @@ const features = [
     ),
     title: "Ajout du menu avec IA",
     description:
-      "Créez votre menu en quelques secondes grâce à l'intelligence artificielle. Descriptions et tarifs générés automatiquement.",
+      "Prenez une photo de votre menu et l'IA le convertit automatiquement en menu numérique catégorisé.",
     special: "ai",
   },
   {
@@ -175,28 +175,6 @@ export default function Features() {
           </div>
         </FadeIn>
 
-        {/* Slider controls */}
-        <div className="mb-6 flex justify-center gap-2">
-          <button
-            onClick={() => scroll("left")}
-            className="flex h-10 w-10 items-center justify-center rounded-full border border-primary bg-transparent text-primary transition-all hover:bg-primary/10"
-            aria-label="Précédent"
-          >
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M15 18l-6-6 6-6" />
-            </svg>
-          </button>
-          <button
-            onClick={() => scroll("right")}
-            className="flex h-10 w-10 items-center justify-center rounded-full border border-primary bg-transparent text-primary transition-all hover:bg-primary/10"
-            aria-label="Suivant"
-          >
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M9 18l6-6-6-6" />
-            </svg>
-          </button>
-        </div>
-
         {/* Slider */}
         <div className="relative">
           <div
@@ -234,6 +212,28 @@ export default function Features() {
               );
             })}
           </div>
+        </div>
+
+        {/* Slider controls */}
+        <div className="mt-6 flex justify-center gap-2">
+          <button
+            onClick={() => scroll("left")}
+            className="flex h-10 w-10 items-center justify-center rounded-full border border-primary bg-transparent text-primary transition-all hover:bg-primary/10"
+            aria-label="Précédent"
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M15 18l-6-6 6-6" />
+            </svg>
+          </button>
+          <button
+            onClick={() => scroll("right")}
+            className="flex h-10 w-10 items-center justify-center rounded-full border border-primary bg-transparent text-primary transition-all hover:bg-primary/10"
+            aria-label="Suivant"
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M9 18l6-6-6-6" />
+            </svg>
+          </button>
         </div>
       </div>
     </section>
