@@ -1,6 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { signOut } from "@/app/actions/auth";
 import { APP_URL, APP_ROUTES, PRICING } from "@/lib/constants";
+import { TransferButton } from "@/components/TransferButton";
 
 export default async function DashboardPage() {
   const supabase = await createClient();
@@ -257,7 +258,7 @@ export default async function DashboardPage() {
                     : "Votre période d'essai est terminée. Passez à un abonnement pour continuer à utiliser Qomand."}
                 </p>
               </div>
-              <a
+              <TransferButton
                 href={isSubscribed || isTrialActive ? APP_ROUTES.dashboard : APP_ROUTES.subscribe}
                 style={{
                   display: "inline-flex",
@@ -289,15 +290,13 @@ export default async function DashboardPage() {
                 >
                   <path d="M5 12h14M12 5l7 7-7 7" />
                 </svg>
-              </a>
+              </TransferButton>
             </div>
           </div>
 
         {/* Primary Action - Open App */}
-        <a
+        <TransferButton
           href={APP_ROUTES.dashboard}
-          target="_blank"
-          rel="noopener noreferrer"
           style={{
             position: "relative",
             background: "linear-gradient(135deg, rgba(232,83,29,0.12) 0%, var(--surface) 50%)",
@@ -312,6 +311,7 @@ export default async function DashboardPage() {
             marginBottom: 32,
             transition: "all 0.2s ease",
             overflow: "hidden",
+            width: "100%",
           }}
         >
           {/* Subtle glow effect */}
@@ -401,7 +401,7 @@ export default async function DashboardPage() {
               <path d="M5 12h14M12 5l7 7-7 7" />
             </svg>
           </div>
-        </a>
+        </TransferButton>
 
         {/* Secondary Actions Grid */}
         <div
@@ -414,10 +414,8 @@ export default async function DashboardPage() {
         >
 
           {/* Menu */}
-          <a
+          <TransferButton
             href={APP_ROUTES.menu}
-            target="_blank"
-            rel="noopener noreferrer"
             style={{ 
               background: "var(--surface)", 
               border: "1px solid var(--border)", 
@@ -440,13 +438,11 @@ export default async function DashboardPage() {
               <p style={{ fontSize: 14, fontWeight: 600, color: "var(--foreground)", margin: "0 0 3px" }}>Gérer le menu</p>
               <p style={{ fontSize: 12, color: "var(--muted)", margin: 0, lineHeight: 1.4 }}>Ajoutez, modifiez ou supprimez vos plats en temps réel.</p>
             </div>
-          </a>
+          </TransferButton>
 
           {/* Orders */}
-          <a
+          <TransferButton
             href={APP_ROUTES.orders}
-            target="_blank"
-            rel="noopener noreferrer"
             style={{ 
               background: "var(--surface)", 
               border: "1px solid var(--border)", 
@@ -470,13 +466,11 @@ export default async function DashboardPage() {
               <p style={{ fontSize: 14, fontWeight: 600, color: "var(--foreground)", margin: "0 0 3px" }}>Commandes</p>
               <p style={{ fontSize: 12, color: "var(--muted)", margin: 0, lineHeight: 1.4 }}>Suivez les commandes de vos tables en temps réel.</p>
             </div>
-          </a>
+          </TransferButton>
 
           {/* Tables */}
-          <a
+          <TransferButton
             href={APP_ROUTES.tables}
-            target="_blank"
-            rel="noopener noreferrer"
             style={{ 
               background: "var(--surface)", 
               border: "1px solid var(--border)", 
@@ -501,13 +495,11 @@ export default async function DashboardPage() {
               <p style={{ fontSize: 14, fontWeight: 600, color: "var(--foreground)", margin: "0 0 3px" }}>Tables & QR codes</p>
               <p style={{ fontSize: 12, color: "var(--muted)", margin: 0, lineHeight: 1.4 }}>Gérez vos tables et téléchargez vos QR codes.</p>
             </div>
-          </a>
+          </TransferButton>
 
           {/* Settings */}
-          <a
+          <TransferButton
             href={APP_ROUTES.settings}
-            target="_blank"
-            rel="noopener noreferrer"
             style={{ 
               background: "var(--surface)", 
               border: "1px solid var(--border)", 
@@ -530,7 +522,7 @@ export default async function DashboardPage() {
               <p style={{ fontSize: 14, fontWeight: 600, color: "var(--foreground)", margin: "0 0 3px" }}>Paramètres</p>
               <p style={{ fontSize: 12, color: "var(--muted)", margin: 0, lineHeight: 1.4 }}>Horaires, paiements, informations du restaurant.</p>
             </div>
-          </a>
+          </TransferButton>
         </div>
 
         {/* Help - Subtle card */}
