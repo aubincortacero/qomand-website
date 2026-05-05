@@ -71,7 +71,45 @@ export default async function DashboardPage() {
             justifyContent: "space-between",
           }}
         >
+          {/* Logo */}
+          <a
+            href="/"
+            style={{
+              textDecoration: "none",
+              display: "flex",
+              alignItems: "center",
+              gap: 8,
+            }}
+          >
+            <svg
+              width="28"
+              height="28"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="var(--primary)"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M18 8h1a4 4 0 010 8h-1" />
+              <path d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z" />
+              <line x1="6" y1="1" x2="6" y2="4" />
+              <line x1="10" y1="1" x2="10" y2="4" />
+              <line x1="14" y1="1" x2="14" y2="4" />
+            </svg>
+            <span
+              style={{
+                fontSize: 18,
+                fontWeight: 700,
+                letterSpacing: "-0.02em",
+                color: "var(--foreground)",
+              }}
+            >
+              Qomand
+            </span>
+          </a>
 
+          {/* Email + Logout */}
           <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
             <span style={{ fontSize: 13, color: "var(--muted)" }}>
               {user?.email}
@@ -117,77 +155,84 @@ export default async function DashboardPage() {
             Bonjour, {name} 👋
           </h1>
           <p style={{ color: "var(--muted)", fontSize: 15, margin: 0 }}>
-            Votre espace Qomand — gérez votre restaurant depuis un seul endroit.
+            Votre espace Qomand, gérez vos commandes depuis un seul endroit.
           </p>
         </div>
 
+        {/* Trial status card - Full width */}
         <div
           style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-            gap: 20,
+            position: "relative",
+            background: isTrialActive || !isSubscribed
+              ? "linear-gradient(135deg, rgba(232,83,29,0.12) 0%, rgba(232,83,29,0.05) 100%)"
+              : "linear-gradient(135deg, rgba(34,197,94,0.08) 0%, var(--surface) 60%)",
+            border: `2px solid ${
+              isTrialActive || !isSubscribed
+                ? "var(--primary)"
+                : "rgba(34,197,94,0.3)"
+            }`,
+            borderRadius: 16,
+            padding: "32px",
+            marginBottom: 32,
+            boxShadow: isTrialActive || !isSubscribed
+              ? "0 4px 24px rgba(232,83,29,0.15)"
+              : "none",
           }}
         >
-          {/* Trial status card */}
-          <div
-            style={{
-              background: isTrialActive
-                ? "linear-gradient(135deg, rgba(232,83,29,0.08) 0%, var(--surface) 60%)"
-                : "var(--surface)",
-              border: `1px solid ${isTrialActive ? "rgba(232,83,29,0.35)" : "var(--border)"}`,
-              borderRadius: 14,
-              padding: "28px 28px 24px",
-              gridColumn: "1 / -1",
-            }}
-          >
             <div
               style={{
                 display: "flex",
                 alignItems: "flex-start",
                 justifyContent: "space-between",
                 flexWrap: "wrap",
-                gap: 20,
+                gap: 24,
               }}
             >
-              <div>
+              <div style={{ flex: 1, minWidth: 280 }}>
                 <div
                   style={{
                     display: "inline-flex",
                     alignItems: "center",
-                    gap: 6,
-                    background: isTrialActive
-                      ? "rgba(232,83,29,0.15)"
-                      : "var(--surface-1)",
-                    border: `1px solid ${isTrialActive ? "rgba(232,83,29,0.3)" : "var(--border)"}`,
+                    gap: 8,
+                    background: isSubscribed
+                      ? "rgba(34,197,94,0.15)"
+                      : "rgba(232,83,29,0.2)",
+                    border: `1px solid ${
+                      isSubscribed
+                        ? "rgba(34,197,94,0.3)"
+                        : "rgba(232,83,29,0.4)"
+                    }`,
                     borderRadius: 999,
-                    padding: "4px 12px",
-                    fontSize: 12,
-                    fontWeight: 600,
-                    color: isTrialActive ? "var(--primary)" : "var(--muted)",
-                    marginBottom: 14,
+                    padding: "6px 14px",
+                    fontSize: 11,
+                    fontWeight: 700,
+                    color: isSubscribed ? "rgb(34,197,94)" : "var(--primary)",
+                    marginBottom: 16,
                     textTransform: "uppercase",
-                    letterSpacing: "0.05em",
+                    letterSpacing: "0.08em",
                   }}
                 >
                   <span
                     style={{
-                      width: 6,
-                      height: 6,
+                      width: 7,
+                      height: 7,
                       borderRadius: "50%",
-                      background: isTrialActive
-                        ? "var(--primary)"
-                        : "var(--muted)",
+                      background: isSubscribed ? "rgb(34,197,94)" : "var(--primary)",
                       display: "inline-block",
+                      boxShadow: isSubscribed
+                        ? "0 0 8px rgba(34,197,94,0.6)"
+                        : "0 0 8px rgba(232,83,29,0.6)",
                     }}
                   />
                   {isSubscribed ? "Abonnement actif" : isTrialActive ? "Essai gratuit actif" : "Essai expiré"}
                 </div>
                 <h2
                   style={{
-                    fontSize: 20,
-                    fontWeight: 700,
-                    margin: "0 0 6px",
-                    letterSpacing: "-0.02em",
+                    fontSize: 22,
+                    fontWeight: 800,
+                    margin: "0 0 8px",
+                    letterSpacing: "-0.03em",
+                    color: "var(--foreground)",
                   }}
                 >
                   {isSubscribed
@@ -199,10 +244,10 @@ export default async function DashboardPage() {
                 <p
                   style={{
                     color: "var(--muted)",
-                    fontSize: 14,
+                    fontSize: 15,
                     margin: 0,
-                    maxWidth: 440,
-                    lineHeight: 1.55,
+                    maxWidth: 520,
+                    lineHeight: 1.6,
                   }}
                 >
                   {isSubscribed
@@ -217,26 +262,28 @@ export default async function DashboardPage() {
                 style={{
                   display: "inline-flex",
                   alignItems: "center",
-                  gap: 8,
+                  gap: 10,
                   background: "var(--primary)",
                   color: "white",
                   textDecoration: "none",
-                  fontSize: 14,
-                  fontWeight: 600,
-                  padding: "12px 22px",
-                  borderRadius: 10,
+                  fontSize: 15,
+                  fontWeight: 700,
+                  padding: "14px 28px",
+                  borderRadius: 12,
                   whiteSpace: "nowrap",
                   flexShrink: 0,
+                  boxShadow: "0 4px 16px rgba(232,83,29,0.3)",
+                  transition: "all 0.2s ease",
                 }}
               >
                 {isSubscribed ? "Ouvrir l'app" : isTrialActive ? "Démarrer l'app" : "Choisir un forfait"}
                 <svg
-                  width="14"
-                  height="14"
+                  width="16"
+                  height="16"
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
-                  strokeWidth="2.5"
+                  strokeWidth="3"
                   strokeLinecap="round"
                   strokeLinejoin="round"
                 >
@@ -246,42 +293,61 @@ export default async function DashboardPage() {
             </div>
           </div>
 
-          {/* Open app */}
-          <a
-            href={APP_ROUTES.dashboard}
-            target="_blank"
-            rel="noopener noreferrer"
+        {/* Primary Action - Open App */}
+        <a
+          href={APP_ROUTES.dashboard}
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{
+            position: "relative",
+            background: "linear-gradient(135deg, rgba(232,83,29,0.12) 0%, var(--surface) 50%)",
+            border: "1px solid rgba(232,83,29,0.3)",
+            borderRadius: 16,
+            padding: "32px",
+            textDecoration: "none",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            gap: 24,
+            marginBottom: 32,
+            transition: "all 0.2s ease",
+            overflow: "hidden",
+          }}
+        >
+          {/* Subtle glow effect */}
+          <div
             style={{
-              background: "var(--surface)",
-              border: "1px solid var(--border)",
-              borderRadius: 14,
-              padding: "24px",
-              textDecoration: "none",
-              display: "flex",
-              flexDirection: "column",
-              gap: 12,
-              transition: "border-color 0.2s",
+              position: "absolute",
+              top: -50,
+              right: -50,
+              width: 200,
+              height: 200,
+              background: "radial-gradient(circle, rgba(232,83,29,0.15) 0%, transparent 70%)",
+              pointerEvents: "none",
             }}
-          >
+          />
+          
+          <div style={{ position: "relative", flex: 1 }}>
             <div
               style={{
-                width: 42,
-                height: 42,
-                background: "var(--surface-1)",
-                border: "1px solid var(--border)",
-                borderRadius: 10,
+                width: 52,
+                height: 52,
+                background: "linear-gradient(135deg, var(--primary) 0%, #c64918 100%)",
+                borderRadius: 12,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
+                marginBottom: 16,
+                boxShadow: "0 4px 12px rgba(232,83,29,0.25)",
               }}
             >
               <svg
-                width="20"
-                height="20"
+                width="24"
+                height="24"
                 viewBox="0 0 24 24"
                 fill="none"
-                stroke="var(--primary)"
-                strokeWidth="2"
+                stroke="white"
+                strokeWidth="2.5"
                 strokeLinecap="round"
                 strokeLinejoin="round"
               >
@@ -290,39 +356,89 @@ export default async function DashboardPage() {
                 <line x1="10" y1="14" x2="21" y2="3" />
               </svg>
             </div>
-            <div>
-              <p
-                style={{
-                  fontSize: 15,
-                  fontWeight: 600,
-                  color: "var(--foreground)",
-                  margin: "0 0 4px",
-                }}
-              >
-                Ouvrir l&apos;application
-              </p>
-              <p style={{ fontSize: 13, color: "var(--muted)", margin: 0 }}>
-                Gérez votre menu, suivez les commandes en temps réel.
-              </p>
-            </div>
-          </a>
+            <h3
+              style={{
+                fontSize: 20,
+                fontWeight: 700,
+                color: "var(--foreground)",
+                margin: "0 0 6px",
+                letterSpacing: "-0.02em",
+              }}
+            >
+              Ouvrir l&apos;application
+            </h3>
+            <p style={{ fontSize: 14, color: "var(--muted)", margin: 0, lineHeight: 1.5 }}>
+              Gérez votre menu, suivez les commandes en temps réel.
+            </p>
+          </div>
+          
+          <div
+            style={{
+              position: "relative",
+              background: "var(--primary)",
+              color: "white",
+              borderRadius: 10,
+              padding: "12px 24px",
+              fontSize: 14,
+              fontWeight: 600,
+              whiteSpace: "nowrap",
+              display: "flex",
+              alignItems: "center",
+              gap: 8,
+            }}
+          >
+            Accéder
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </div>
+        </a>
+
+        {/* Secondary Actions Grid */}
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
+            gap: 16,
+            marginBottom: 24,
+          }}
+        >
 
           {/* Menu */}
           <a
             href={APP_ROUTES.menu}
             target="_blank"
             rel="noopener noreferrer"
-            style={{ background: "var(--surface)", border: "1px solid var(--border)", borderRadius: 14, padding: "24px", textDecoration: "none", display: "flex", flexDirection: "column", gap: 12 }}
+            style={{ 
+              background: "var(--surface)", 
+              border: "1px solid var(--border)", 
+              borderRadius: 12, 
+              padding: "20px", 
+              textDecoration: "none", 
+              display: "flex", 
+              flexDirection: "column", 
+              gap: 10,
+              transition: "all 0.2s ease",
+            }}
           >
-            <div style={{ width: 42, height: 42, background: "var(--surface-1)", border: "1px solid var(--border)", borderRadius: 10, display: "flex", alignItems: "center", justifyContent: "center" }}>
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <div style={{ width: 36, height: 36, background: "var(--surface-1)", border: "1px solid var(--border)", borderRadius: 8, display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <line x1="8" y1="6" x2="21" y2="6" /><line x1="8" y1="12" x2="21" y2="12" /><line x1="8" y1="18" x2="21" y2="18" />
                 <line x1="3" y1="6" x2="3.01" y2="6" /><line x1="3" y1="12" x2="3.01" y2="12" /><line x1="3" y1="18" x2="3.01" y2="18" />
               </svg>
             </div>
             <div>
-              <p style={{ fontSize: 15, fontWeight: 600, color: "var(--foreground)", margin: "0 0 4px" }}>Gérer le menu</p>
-              <p style={{ fontSize: 13, color: "var(--muted)", margin: 0 }}>Ajoutez, modifiez ou supprimez vos plats en temps réel.</p>
+              <p style={{ fontSize: 14, fontWeight: 600, color: "var(--foreground)", margin: "0 0 3px" }}>Gérer le menu</p>
+              <p style={{ fontSize: 12, color: "var(--muted)", margin: 0, lineHeight: 1.4 }}>Ajoutez, modifiez ou supprimez vos plats en temps réel.</p>
             </div>
           </a>
 
@@ -331,18 +447,28 @@ export default async function DashboardPage() {
             href={APP_ROUTES.orders}
             target="_blank"
             rel="noopener noreferrer"
-            style={{ background: "var(--surface)", border: "1px solid var(--border)", borderRadius: 14, padding: "24px", textDecoration: "none", display: "flex", flexDirection: "column", gap: 12 }}
+            style={{ 
+              background: "var(--surface)", 
+              border: "1px solid var(--border)", 
+              borderRadius: 12, 
+              padding: "20px", 
+              textDecoration: "none", 
+              display: "flex", 
+              flexDirection: "column", 
+              gap: 10,
+              transition: "all 0.2s ease",
+            }}
           >
-            <div style={{ width: 42, height: 42, background: "var(--surface-1)", border: "1px solid var(--border)", borderRadius: 10, display: "flex", alignItems: "center", justifyContent: "center" }}>
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <div style={{ width: 36, height: 36, background: "var(--surface-1)", border: "1px solid var(--border)", borderRadius: 8, display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
                 <line x1="3" y1="6" x2="21" y2="6" />
                 <path d="M16 10a4 4 0 0 1-8 0" />
               </svg>
             </div>
             <div>
-              <p style={{ fontSize: 15, fontWeight: 600, color: "var(--foreground)", margin: "0 0 4px" }}>Commandes</p>
-              <p style={{ fontSize: 13, color: "var(--muted)", margin: 0 }}>Suivez les commandes de vos tables en temps réel.</p>
+              <p style={{ fontSize: 14, fontWeight: 600, color: "var(--foreground)", margin: "0 0 3px" }}>Commandes</p>
+              <p style={{ fontSize: 12, color: "var(--muted)", margin: 0, lineHeight: 1.4 }}>Suivez les commandes de vos tables en temps réel.</p>
             </div>
           </a>
 
@@ -351,10 +477,20 @@ export default async function DashboardPage() {
             href={APP_ROUTES.tables}
             target="_blank"
             rel="noopener noreferrer"
-            style={{ background: "var(--surface)", border: "1px solid var(--border)", borderRadius: 14, padding: "24px", textDecoration: "none", display: "flex", flexDirection: "column", gap: 12 }}
+            style={{ 
+              background: "var(--surface)", 
+              border: "1px solid var(--border)", 
+              borderRadius: 12, 
+              padding: "20px", 
+              textDecoration: "none", 
+              display: "flex", 
+              flexDirection: "column", 
+              gap: 10,
+              transition: "all 0.2s ease",
+            }}
           >
-            <div style={{ width: 42, height: 42, background: "var(--surface-1)", border: "1px solid var(--border)", borderRadius: 10, display: "flex", alignItems: "center", justifyContent: "center" }}>
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <div style={{ width: 36, height: 36, background: "var(--surface-1)", border: "1px solid var(--border)", borderRadius: 8, display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <rect x="3" y="3" width="7" height="7" rx="1" />
                 <rect x="14" y="3" width="7" height="7" rx="1" />
                 <rect x="3" y="14" width="7" height="7" rx="1" />
@@ -362,8 +498,8 @@ export default async function DashboardPage() {
               </svg>
             </div>
             <div>
-              <p style={{ fontSize: 15, fontWeight: 600, color: "var(--foreground)", margin: "0 0 4px" }}>Tables & QR codes</p>
-              <p style={{ fontSize: 13, color: "var(--muted)", margin: 0 }}>Gérez vos tables et téléchargez vos QR codes.</p>
+              <p style={{ fontSize: 14, fontWeight: 600, color: "var(--foreground)", margin: "0 0 3px" }}>Tables & QR codes</p>
+              <p style={{ fontSize: 12, color: "var(--muted)", margin: 0, lineHeight: 1.4 }}>Gérez vos tables et téléchargez vos QR codes.</p>
             </div>
           </a>
 
@@ -372,50 +508,64 @@ export default async function DashboardPage() {
             href={APP_ROUTES.settings}
             target="_blank"
             rel="noopener noreferrer"
-            style={{ background: "var(--surface)", border: "1px solid var(--border)", borderRadius: 14, padding: "24px", textDecoration: "none", display: "flex", flexDirection: "column", gap: 12 }}
+            style={{ 
+              background: "var(--surface)", 
+              border: "1px solid var(--border)", 
+              borderRadius: 12, 
+              padding: "20px", 
+              textDecoration: "none", 
+              display: "flex", 
+              flexDirection: "column", 
+              gap: 10,
+              transition: "all 0.2s ease",
+            }}
           >
-            <div style={{ width: 42, height: 42, background: "var(--surface-1)", border: "1px solid var(--border)", borderRadius: 10, display: "flex", alignItems: "center", justifyContent: "center" }}>
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <div style={{ width: 36, height: 36, background: "var(--surface-1)", border: "1px solid var(--border)", borderRadius: 8, display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <circle cx="12" cy="12" r="3" />
                 <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
               </svg>
             </div>
             <div>
-              <p style={{ fontSize: 15, fontWeight: 600, color: "var(--foreground)", margin: "0 0 4px" }}>Paramètres</p>
-              <p style={{ fontSize: 13, color: "var(--muted)", margin: 0 }}>Horaires, paiements, informations du restaurant.</p>
+              <p style={{ fontSize: 14, fontWeight: 600, color: "var(--foreground)", margin: "0 0 3px" }}>Paramètres</p>
+              <p style={{ fontSize: 12, color: "var(--muted)", margin: 0, lineHeight: 1.4 }}>Horaires, paiements, informations du restaurant.</p>
             </div>
           </a>
+        </div>
 
-          {/* Help */}
-          <div
-            style={{
-              background: "var(--surface)",
-              border: "1px solid var(--border)",
-              borderRadius: 14,
-              padding: "24px",
-              display: "flex",
-              flexDirection: "column",
-              gap: 12,
-            }}
-          >
+        {/* Help - Subtle card */}
+        <div
+          style={{
+            background: "var(--surface)",
+            border: "1px solid var(--border)",
+            borderRadius: 12,
+            padding: "20px 24px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            gap: 16,
+          }}
+        >
+          <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
             <div
               style={{
-                width: 42,
-                height: 42,
+                width: 36,
+                height: 36,
                 background: "var(--surface-1)",
                 border: "1px solid var(--border)",
-                borderRadius: 10,
+                borderRadius: 8,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
+                flexShrink: 0,
               }}
             >
               <svg
-                width="20"
-                height="20"
+                width="18"
+                height="18"
                 viewBox="0 0 24 24"
                 fill="none"
-                stroke="var(--primary)"
+                stroke="var(--muted)"
                 strokeWidth="2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -428,38 +578,44 @@ export default async function DashboardPage() {
             <div>
               <p
                 style={{
-                  fontSize: 15,
+                  fontSize: 13,
                   fontWeight: 600,
                   color: "var(--foreground)",
-                  margin: "0 0 4px",
+                  margin: "0 0 2px",
                 }}
               >
                 Besoin d&apos;aide ?
               </p>
               <p
                 style={{
-                  fontSize: 13,
+                  fontSize: 12,
                   color: "var(--muted)",
-                  margin: "0 0 14px",
-                  lineHeight: 1.5,
+                  margin: 0,
+                  lineHeight: 1.4,
                 }}
               >
-                Notre équipe est disponible pour vous aider à configurer votre
-                espace.
+                Notre équipe est disponible pour vous aider à configurer votre espace.
               </p>
-              <a
-                href="mailto:support@qomand.fr"
-                style={{
-                  fontSize: 13,
-                  color: "var(--primary)",
-                  textDecoration: "none",
-                  fontWeight: 500,
-                }}
-              >
-                Contacter le support →
-              </a>
             </div>
           </div>
+          <a
+            href="mailto:support@qomand.fr"
+            style={{
+              fontSize: 12,
+              color: "var(--primary)",
+              textDecoration: "none",
+              fontWeight: 600,
+              whiteSpace: "nowrap",
+              display: "flex",
+              alignItems: "center",
+              gap: 4,
+            }}
+          >
+            Contacter
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </a>
         </div>
 
         {/* Account info */}
