@@ -40,6 +40,28 @@ const features = [
         strokeLinecap="round"
         strokeLinejoin="round"
       >
+        <path d="M12 2L2 7l10 5 10-5-10-5z" />
+        <path d="M2 17l10 5 10-5" />
+        <path d="M2 12l10 5 10-5" />
+      </svg>
+    ),
+    title: "Ajout du menu avec IA",
+    description:
+      "Créez votre menu en quelques secondes grâce à l'intelligence artificielle. Descriptions et tarifs générés automatiquement.",
+    special: "ai",
+  },
+  {
+    icon: (
+      <svg
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
         <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7" />
         <path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" />
       </svg>
@@ -112,28 +134,6 @@ const features = [
     description:
       "Suivez vos ventes, vos plats les plus populaires et vos heures de pointe en temps réel.",
   },
-  {
-    icon: (
-      <svg
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <path d="M12 2L2 7l10 5 10-5-10-5z" />
-        <path d="M2 17l10 5 10-5" />
-        <path d="M2 12l10 5 10-5" />
-      </svg>
-    ),
-    title: "Ajout du menu avec IA",
-    description:
-      "Créez votre menu en quelques secondes grâce à l'intelligence artificielle. Descriptions et tarifs générés automatiquement.",
-    special: "ai",
-  },
 ];
 
 export default function Features() {
@@ -199,10 +199,6 @@ export default function Features() {
 
         {/* Slider */}
         <div className="relative">
-          {/* Gradient fade edges */}
-          <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-background to-transparent" />
-          <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-background to-transparent" />
-
           <div
             ref={scrollRef}
             className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide"
