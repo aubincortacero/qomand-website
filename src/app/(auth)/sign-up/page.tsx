@@ -68,7 +68,7 @@ export default function SignUpPage() {
           lineHeight: 1.5,
         }}
       >
-        7 jours d&apos;essai gratuit — sans carte bancaire.
+        14 jours d&apos;essai gratuit — sans carte bancaire.
       </p>
 
       <GoogleButton label="Continuer avec Google" />

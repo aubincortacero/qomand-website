@@ -15,5 +15,5 @@ export const APP_ROUTES = {
 export const PRICING = {
   monthly: 20,
   commissionPercent: 1,
-  trialDays: 7,
+  trialDays: 14,
 } as const;

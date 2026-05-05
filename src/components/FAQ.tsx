@@ -9,8 +9,8 @@ const faqs = [
     a: "Non. Ni vous ni vos clients n'avez besoin d'installer quoi que ce soit. Qomand fonctionne entièrement depuis le navigateur web, sur tous les smartphones.",
   },
   {
-    q: "Comment fonctionne l'essai gratuit de 7 jours ?",
-    a: "Dès la création de votre compte, vous accédez à toutes les fonctionnalités pendant 7 jours sans restriction. Aucune carte bancaire n'est requise pour démarrer.",
+    q: "Comment fonctionne l'essai gratuit de 14 jours ?",
+    a: "Dès la création de votre compte, vous accédez à toutes les fonctionnalités pendant 14 jours sans restriction. Aucune carte bancaire n'est requise pour démarrer.",
   },
   {
     q: "Qu'est-ce que le 1 % par commande ?",
